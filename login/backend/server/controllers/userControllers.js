@@ -5,12 +5,14 @@ const dotenv = require('dotenv');
 const mongoose = require ('mongoose');
 const validateRegisterInput = require("../../validation/register");
 const validateLoginInput = require("../../validation/login");
+const validateEmail = require("../../validation/validateEmail");
+const validatePasswordInput = require("../../validation/validatePassword");
 const { roles } = require('../roles')
 
 exports.grantAccess = function(action, resource) {
  return async (req, res, next) => {
   try {
-   const permission = roles.can(req.user.role)[action](resource);
+   const permission = roles.can("admin")[action](resource);
    if (!permission.granted) {
     return res.status(401).json({
      error: "You don't have enough permission to perform this action"
@@ -22,20 +24,20 @@ exports.grantAccess = function(action, resource) {
   }
  }
 }
-
-exports.allowIfLoggedin = async (req, res, next) => {
- try {
-  const user = res.locals.loggedInUser;
-  if (!user)
-   return res.status(401).json({
-    error: "You need to be logged in to access this route"
-   });
-   req.user = user;
-   next();
-  } catch (error) {
-   next(error);
-  }
-}
+//
+// exports.allowIfLoggedin = async (req, res, next) => {
+//  try {
+//   const user = res.locals.loggedInUser;
+//   if (!user)
+//    return res.status(401).json({
+//     error: "You need to be logged in to access this route"
+//    });
+//    req.user = user;
+//    next();
+//   } catch (error) {
+//    next(error);
+//   }
+// }
 
 async function hashPassword(password) {
  return await bcrypt.hash(password, 10);
@@ -107,7 +109,9 @@ exports.login = async(req, res, next) => {
 
     const payload = {
           id: user._id,
-          name: user.name
+          name: user.name,
+          role: user.role,
+          email: user.email
     };
 
     const token = jwt.sign(
@@ -154,8 +158,28 @@ exports.updateUser = async (req, res, next) => {
  try {
    const userId = req.params.userId;
    const userBody = req.body;
+   if (userBody.email)
+   {
+     const { errors, isValid } = validateEmail(userBody);
+     // Check validation
+     if (!isValid) {
+       return res.status(400).json(errors);
+     }
+   }
+
+   if (userBody.password)
+   {
+     const { errors, isValid } = validatePasswordInput(userBody);
+     // Check validation
+     if (!isValid) {
+       return res.status(400).json(errors);
+     }
+   }
+   userBody.password = await hashPassword(userBody.password);
+   userBody.password2 = await hashPassword(userBody.password);
    await User.findByIdAndUpdate(userId, userBody);
    const user = await User.findById(userId);
+
    res.status(200).json({
     data: user,
     message: 'User has been updated'
@@ -168,8 +192,11 @@ exports.updateUser = async (req, res, next) => {
 
 exports.deleteUser = async (req, res, next) => {
  try {
-  const userId = req.params.userId;
-  await User.findByIdAndDelete(userId);
+  const id = req.params.userId;
+  // res.status(200).json({id: userId});
+
+  await User.findByIdAndDelete(id);
+
   res.status(200).json({
    data: null,
    message: 'User has been deleted'

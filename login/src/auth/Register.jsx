@@ -23,6 +23,13 @@ class Register extends Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
+  componentDidMount() {
+      // If logged in and user navigates to Register page, should redirect them to dashboard
+      if (this.props.auth.isAuthenticated) {
+        this.props.history.push("/dashboard");
+      }
+    }
+
   UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.errors) {
       this.setState({
@@ -169,7 +176,7 @@ class Register extends Component {
 Register.propTypes = {
   registerUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
-  errors: PropTypes.string.isRequired
+  errors: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({

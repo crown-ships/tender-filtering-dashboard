@@ -21,9 +21,26 @@ class Login extends Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
+  componentDidMount() {
+  // If logged in and user navigates to Login page, should redirect them to dashboard
+  if (this.props.auth.isAuthenticated) {
+    if (this.props.auth.user.role == "admin"){
+      this.props.history.push("/admin-dashboard"); // push user to dashboard when they login
+    }
+    else if (this.props.auth.user.role == "basic") {
+      this.props.history.push("/basic-dashboard");
+    }
+  }
+}
+
   UNSAFE_componentWillReceiveProps(nextProps) {
       if (nextProps.auth.isAuthenticated) {
-        this.props.history.push("/dashboard"); // push user to dashboard when they login
+        if (nextProps.auth.user.role == "admin"){
+          this.props.history.push("/admin-dashboard"); // push user to dashboard when they login
+        }
+        else if (nextProps.auth.user.role == "basic") {
+          this.props.history.push("/basic-dashboard");
+        }
       }
   if (nextProps.errors) {
         this.setState({
@@ -138,7 +155,7 @@ class Login extends Component {
 Login.propTypes = {
   loginUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
-  errors: PropTypes.string.isRequired
+  errors: PropTypes.object.isRequired
 };
 const mapStateToProps = state => ({
   auth: state.auth,

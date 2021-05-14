@@ -24,7 +24,7 @@ const signupTemplate = new mongoose.Schema({
   },
   role: {
     type: String,
-    default: 'basic',
+    default: "basic",
     enum: ["basic", "project-manager", "admin"]
   }
   // },

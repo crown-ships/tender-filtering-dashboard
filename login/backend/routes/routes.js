@@ -9,12 +9,17 @@ router.post('/signup', userController.signup);
 
 router.post("/login", userController.login);
 
-router.get('/user/:userId', userController.allowIfLoggedin, userController.getUser);
+router.post('/user/:userId',  userController.updateUser);
 
-router.get('/users', userController.allowIfLoggedin, userController.grantAccess('readAny', 'profile'), userController.getUsers);
+router.delete('/user/:userId',  userController.deleteUser);
 
-router.post('/user/:userId', userController.allowIfLoggedin, userController.grantAccess('updateAny', 'profile'), userController.updateUser);
 
-router.delete('/user/:userId', userController.allowIfLoggedin, userController.grantAccess('deleteAny', 'profile'), userController.deleteUser);
+
+router.get('/user/:userId', userController.getUser);
+
+router.get('/users', userController.getUsers);
+
+
+
 
 module.exports = router;
