@@ -3,12 +3,14 @@ import setAuthToken from "../utils/setAuthToken";
 
 
 import {
- UPDATE_USER,
- DELETE_USER,
- GET_USER ,
- GET_ERRORS,
- GET_ALL_USERS
+ GET_ERRORS
 } from "../actions/types";
+
+
+export var ud = {};
+export const get_all = data => {
+  return data;
+};
 
 export const updateUser = (userData, history) => dispatch => {
 
@@ -31,6 +33,7 @@ export const updateUser = (userData, history) => dispatch => {
 };
 
 export const deleteUser = (userData, history) => dispatch => {
+  console.log(userData);
   axios
     .delete("http://localhost:4000/api/user/" + userData)
     .then(res => history.push("/admin-dashboard"))
@@ -42,15 +45,14 @@ export const deleteUser = (userData, history) => dispatch => {
     );
 };
 
-export const getAllUsers = (history) => dispatch => {
-  //const ssdata ={};
-  axios
+export const getAllUsers = (history) => {
+  return function (dispatch) {
+
+    return axios
     .get("http://localhost:4000/api/users")
     .then(res => {
       console.log(res.data);
-      // history.push("/admin-dashboard"),
-      //ssdata =  res.data;
-    //  return ssdata;
+      return res.data;
     })
     .catch(err =>
       dispatch({
@@ -58,5 +60,5 @@ export const getAllUsers = (history) => dispatch => {
         payload: err.response.data
       })
     );
-
+  }
 };

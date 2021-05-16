@@ -24,8 +24,11 @@ const signupTemplate = new mongoose.Schema({
   },
   role: {
     type: String,
-    default: "basic",
-    enum: ["basic", "project-manager", "admin"]
+    default: "staff-member",
+    enum: ["staff-member", "supervisor", "admin", "super-admin"]
+  },
+  createdById: {
+    type: String
   }
   // },
   // accessToken: {

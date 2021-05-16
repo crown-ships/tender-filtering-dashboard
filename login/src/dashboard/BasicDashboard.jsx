@@ -3,7 +3,6 @@ import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser, updateUser } from "../actions/authActions";
-//import { getUser, getAllUser, updateUser, deleteUser } from "../actions/dashboardActions";
 
 class BasicDashboard extends Component {
 

@@ -53,10 +53,6 @@ onSubmit(event, id) {
     console.log(auth);
 
   this.props.updateUser(auth, this.props.history);
-  // axios.post('http://localhost:4000/api/login', auth)
-  // .then(resp => console.log(resp.data));
-
-
 }
 
 render() {

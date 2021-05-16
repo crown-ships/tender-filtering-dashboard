@@ -3,15 +3,15 @@ import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../actions/authActions";
-import { getAllUsers } from "../actions/dashboardActions";
-//import { getUser, getAllUser, updateUser, deleteUser } from "../actions/dashboardActions";
+import { getAllUsers, deleteUser } from "../actions/dashboardActions";
+
 
 class AdminDashboard extends Component {
 
   constructor(){
     super();
     this.state = {
-      tableData: {},
+      tableData:[{_id: 'placeholder', name: 'place', role: 'PL', email: 'pl'}],
       errors: {}
     };
   }
@@ -21,53 +21,71 @@ class AdminDashboard extends Component {
     this.props.logoutUser();
   }
 
-  UNSAFE_componentWillReceiveProps(nextProps) {
-      if (nextProps.auth.isAuthenticated) {
-        this.props.history.push("/delete"); // push user to dashboard when they login
-      }
-  if (nextProps.errors) {
-        this.setState({
-          errors: nextProps.errors
-        });
-      }
-    }
+  deleteClick(id){
+    console.log(id);
+    //this.props.deleteUser(id, this.props.history);
+  }
+
 
     renderTableData() {
-      // this.state.tableData =  this.props.getAllUsers(this.props.history);
-      //  console.log(this.props.getAllUsers(this.props.history));
-          // return this.state.tableData.map((student, index) => {
-          //    const { id, name, role, email } = student //destructuring
-          //    return (
-          //       <tr key={id}>
-          //          <td>{id}</td>
-          //          <td>{name}</td>
-          //          <td>{role}</td>
-          //          <td>{email}</td>
-          //       </tr>
-          //    )
-          // })
-       }
+      return this.state.tableData.map((student, index) => {
+        const { _id, name, role, email } = student //destructuring
+        return (
+          <tr key={_id}>
+            <td>{_id}</td>
+            <td>{name}</td>
+            <td>{role}</td>
+            <td>{email}</td>
+            <td className='operation'>
+              <button className="btn btn-small waves-effect waves-light hoverable blue accent-3"
+                      onClick={() => this.deleteClick(_id)}>
+                      Delete</button>
+              </td>
+              <td className='operation'>
+                <button className="btn btn-small waves-effect waves-light hoverable blue accent-3"
+                        onClick={() => this.updateCLick(_id)}>
+                        Update</button>
+              </td>
+          </tr>
+        )
+      })
+    }
+
   onGetAllUsersClick = e => {
     e.preventDefault();
-    this.state.tableData =  this.props.getAllUsers(this.props.history);
+    this.props.getAllUsers(this.props.history)
+    .then(data => {
+
+      this.setState({
+        tableData: data.data
+      });
+      this.props.history.push("/admin-dashboard"); 
+    })
   };
 
+  oncreateClick = e => {
+    e.preventDefault();
+    this.props.history.push("/register");
+  }
+
+  renderTableHeader() {
+        console.log(this.state.tableData);
+        let headerElement = ['name',, 'role', 'email', 'operation', 'update']
+
+        return headerElement.map((key, index) => {
+            return <th key={index}>{key.toUpperCase()}</th>
+        })
+     }
 
 
   render() {
+    console.log(this.state.tableData);
     const { user } = this.props.auth;
+    console.log(user.role);
     return (
-      <div style={{ height: "75vh" }} className="container valign-wrapper">
+      <div style={{ height: "100vh" }} className="container valign-wrapper">
         <div className="row">
           <div className="col s12 center-align">
-          <div>
-            <h1 id='title'>React Dynamic Table</h1>
-            <table id='students'>
-               <tbody>
-                  {this.renderTableData()}
-               </tbody>
-            </table>
-         </div>
             <h4>
               <b>Hi,</b> {user.role}.
               <p className="flow-text grey-text text-darken-1">
@@ -75,27 +93,18 @@ class AdminDashboard extends Component {
                 <span style={{ fontFamily: "monospace" }}>CROWN SHIPS.</span>
               </p>
             </h4>
-            <Link to="/delete" className="btn-flat waves-effect">
-              Delete User
-            </Link>
-            <span> </span>
 
-            <Link to="/delete" className="btn-flat waves-effect">
-              Update User
-            </Link>
-            <p></p>
-            <button
-              style={{
-                width: "150px",
-                borderRadius: "3px",
-                letterSpacing: "1.5px",
-                marginTop: "1rem"
-              }}
-              onClick={this.onGetAllUsersClick}
-              className="btn btn-large waves-effect waves-light hoverable blue accent-3"
-            >
-              Get All
-            </button>
+            <div className="col s12 center-align">
+               <table id='students'>
+                <thead>
+                  <tr>{this.renderTableHeader()}</tr>
+                </thead>
+                <tbody>
+                    {this.renderTableData()}
+                </tbody>
+               </table>
+           </div>
+
             <p></p>
             <button
               style={{
@@ -108,6 +117,32 @@ class AdminDashboard extends Component {
               className="btn btn-large waves-effect waves-light hoverable blue accent-3"
             >
               Logout
+            </button>
+            <span> </span>
+            <button
+              style={{
+                width: "150px",
+                borderRadius: "3px",
+                letterSpacing: "1.5px",
+                marginTop: "1rem"
+              }}
+              onClick={this.onGetAllUsersClick}
+              className="btn btn-large waves-effect waves-light hoverable blue accent-3"
+            >
+              get
+            </button>
+            <span> </span>
+            <button
+              style={{
+                width: "150px",
+                borderRadius: "3px",
+                letterSpacing: "1.5px",
+                marginTop: "1rem"
+              }}
+              onClick={this.oncreateClick}
+              className="btn btn-large waves-effect waves-light hoverable blue accent-3"
+            >
+              create
             </button>
           </div>
         </div>

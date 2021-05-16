@@ -12,32 +12,43 @@ const { roles } = require('../roles')
 exports.grantAccess = function(action, resource) {
  return async (req, res, next) => {
   try {
-   const permission = roles.can("admin")[action](resource);
-   if (!permission.granted) {
+   const role = req.body.userRole;
+   const permission = roles.can(role)[action](resource);
+   if (permission.granted == false) {
     return res.status(401).json({
      error: "You don't have enough permission to perform this action"
     });
-   }
+    }
+    else {
+    if (role == "admin"){
+      if(req.body.role == "super-admin" || req.body.role == "admin"){
+        return res.status(401).json({
+         error: "Action forbidden: Not allowed to change this user."
+        });
+      }
+    }
+  }
    next()
   } catch (error) {
    next(error)
   }
  }
 }
-//
-// exports.allowIfLoggedin = async (req, res, next) => {
-//  try {
-//   const user = res.locals.loggedInUser;
-//   if (!user)
-//    return res.status(401).json({
-//     error: "You need to be logged in to access this route"
-//    });
-//    req.user = user;
-//    next();
-//   } catch (error) {
-//    next(error);
-//   }
-// }
+
+exports.allowIfLoggedin = async (req, res, next) => {
+ try {
+
+  const user = req.body.authentication;
+
+  if (user==false)
+   return res.status(401).json({
+    error: "You need to be logged in to access this route"
+  });
+   next();
+  } catch (error) {
+   next(error);
+  }
+}
 
 async function hashPassword(password) {
  return await bcrypt.hash(password, 10);
@@ -57,23 +68,21 @@ exports.signup = async (req, res, next) => {
    }
 
   const hashedPassword = await hashPassword(req.body.password);
+  const user = await User.findOne({ email });
+  if (user) return next(new Error('Email already exists.'));
+
   const signedupUser = new User({
    name: req.body.name,
    email: req.body.email,
    password: hashedPassword,
    password2: hashedPassword,
-   role: req.body.role || "basic"
+   role: req.body.role || "staff-member",
+   createdById: req.body.createdBy
   });
-
-  // const accessToken = jwt.sign({ userId: signedupUser._id }, process.env.JWT_SECRET, {
-  //   expiresIn: "1d"
-  //  });
-  // signedupUser.accessToken = accessToken;
 
   await signedupUser.save()
   res.json({
    data: signedupUser
-   // accessToken: accessToken
   })
 }
 catch(error) {
@@ -99,19 +108,12 @@ exports.login = async(req, res, next) => {
     const validPassword = await validatePassword(password, user.password);
     if (!validPassword) return next(new Error('Password is not correct.'));
 
-    // const accessToken = jwt.sign(
-    //   { userId: user._id },
-    //   process.env.JWT_SECRET,
-    //   { expiresIn: "1d"}
-    // );
-
-    // await User.findByIdAndUpdate(user._id, { accessToken })
-
     const payload = {
           id: user._id,
           name: user.name,
           role: user.role,
-          email: user.email
+          email: user.email,
+          tableData: {}
     };
 
     const token = jwt.sign(
@@ -193,7 +195,6 @@ exports.updateUser = async (req, res, next) => {
 exports.deleteUser = async (req, res, next) => {
  try {
   const id = req.params.userId;
-  // res.status(200).json({id: userId});
 
   await User.findByIdAndDelete(id);
 
