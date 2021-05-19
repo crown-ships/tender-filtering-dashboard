@@ -21,10 +21,10 @@ class BasicDashboard extends Component {
     this.props.history.push('/UpdateName');
   };
 
-  onUpdateEmailClick = e => {
-    e.preventDefault();
-    this.props.history.push('/UpdateEmail');
-  };
+  // onUpdateEmailClick = e => {
+  //   e.preventDefault();
+  //   this.props.history.push('/UpdateEmail');
+  // };
 
   render() {
     console.log(this.props.history);
@@ -72,19 +72,6 @@ class BasicDashboard extends Component {
               className="btn btn-large waves-effect waves-light hoverable blue accent-3"
             >
               Update Name
-            </button>
-            <span> </span>
-            <button
-              style={{
-                width: "250px",
-                borderRadius: "3px",
-                letterSpacing: "1.5px",
-                marginTop: "1rem"
-              }}
-              onClick={this.onUpdateEmailClick}
-              className="btn btn-large waves-effect waves-light hoverable blue accent-3"
-            >
-              Update Email
             </button>
             <span> </span>
             <button

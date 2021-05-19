@@ -15,7 +15,7 @@ export const get_all = data => {
 export const updateUser = (userData, history) => dispatch => {
 
   axios
-    .post("http://localhost:4000/api/user/"+userData.id, userData)
+    .post("http://localhost:4000/api/user/"+ userData.id)
     .then(res => {
       console.log("updated");
 
@@ -35,7 +35,7 @@ export const updateUser = (userData, history) => dispatch => {
 export const deleteUser = (userData, history) => dispatch => {
   console.log(userData);
   axios
-    .delete("http://localhost:4000/api/user/" + userData)
+    .delete("http://localhost:4000/api/users", {params:userData})
     .then(res => history.push("/admin-dashboard"))
     .catch(err =>
       dispatch({
@@ -45,13 +45,12 @@ export const deleteUser = (userData, history) => dispatch => {
     );
 };
 
-export const getAllUsers = (history) => {
+export const getAllUsers = (userData, history) => {
   return function (dispatch) {
-
+    console.log(userData);
     return axios
-    .get("http://localhost:4000/api/users")
+    .get("http://localhost:4000/api/users", {params:userData})
     .then(res => {
-      console.log(res.data);
       return res.data;
     })
     .catch(err =>

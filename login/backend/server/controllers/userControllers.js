@@ -12,8 +12,13 @@ const { roles } = require('../roles')
 exports.grantAccess = function(action, resource) {
  return async (req, res, next) => {
   try {
-   const role = req.body.userRole;
+   id = req.query.id_u;
+  // res.status(400).json(id);
+  const user = await User.findById(id);
+   const role = user.role;
+   //res.status(400).json({id: role});
    const permission = roles.can(role)[action](resource);
+   //res.status(400).json({message:permission.granted});
    if (permission.granted == false) {
     return res.status(401).json({
      error: "You don't have enough permission to perform this action"
@@ -34,14 +39,41 @@ exports.grantAccess = function(action, resource) {
   }
  }
 }
+// exports.grantAccess = (req, res, action, resource) =>
+//  new Promise (async (resolve, reject) => {
+//   try {
+//    const id = req.query.id_u;
+//    //res.status(400).json({id: id});
+//    const user = await User.findById(id);
+//    const role = user.role;
+//
+//    const permission = roles.can(role)[action](resource);
+//    //res.status(400).json({message:permission.granted});
+//    if (permission.granted == false) {
+//      reject({message: "You don't have enough permission to perform this action"});
+//     }
+//     else {
+//     if (role == "admin"){
+//       if(req.body.role == "super-admin" || req.body.role == "admin"){
+//
+//          reject({message: "Action forbidden: Not allowed to change this user."});
+//       }
+//     }
+//     resolve({message:"Access Granted."})
+//   }
+//
+//   } catch (error) {
+//     reject({message:"Could not grant access",error});
+//   }
+// });
 
 exports.allowIfLoggedin = async (req, res, next) => {
  try {
 
-  const user = req.body.authentication;
-
-  if (user==false)
-   return res.status(401).json({
+  const user = req.query.auth;
+  //res.status(400).json({user:user});
+  if (!user)
+   return res.status(400).json({
     error: "You need to be logged in to access this route"
   });
    next();
@@ -49,6 +81,20 @@ exports.allowIfLoggedin = async (req, res, next) => {
    next(error);
   }
 }
+//
+// exports.allowIfLoggedin = (req, res) =>
+// new Promise (async (resolve, reject) => {
+//  try {
+//
+//   const user = req.query.auth;
+//   reject({user:user});
+//   if (!user) reject({ message: "You need to be logged in to access this route"})
+//
+//   resolve({message: "validated login"});
+//   } catch (error) {
+//    reject({message:"Could not Authenticate",error});
+//   }
+// });
 
 async function hashPassword(password) {
  return await bcrypt.hash(password, 10);
@@ -68,8 +114,9 @@ exports.signup = async (req, res, next) => {
    }
 
   const hashedPassword = await hashPassword(req.body.password);
+  const email = req.body.email;
   const user = await User.findOne({ email });
-  if (user) return next(new Error('Email already exists.'));
+  if (user) return res.status(400).json({data: "User already exists."});
 
   const signedupUser = new User({
    name: req.body.name,
@@ -81,15 +128,91 @@ exports.signup = async (req, res, next) => {
   });
 
   await signedupUser.save()
-  res.json({
-   data: signedupUser
-  })
+  res.status(200).json({message:"User created."})
 }
 catch(error) {
    next(error)
  }
 }
+// exports.signup =  (req, res) =>
+// new Promise (async (resolve, reject) => {
+//  try {
+//    // Validation code here
+//    const { errors, isValid } = validateRegisterInput(req.body);
+//    // Check validation
+//    if (!isValid) {
+//      reject({message: "Invalid information", error});
+//    }
+//
+//   const hashedPassword = await hashPassword(req.body.password);
+//   const email = req.body.email;
+//   const user = await User.findOne({ email });
+//   if (user) reject({message: "User already Exists"});
+//
+//   const signedupUser = new User({
+//    name: req.body.name,
+//    email: req.body.email,
+//    password: hashedPassword,
+//    password2: hashedPassword,
+//    role: req.body.role || "staff-member",
+//    createdById: req.body.createdBy
+//   });
+//
+//   await signedupUser.save()
+//   resolve({user: signedupUser});
+// }
+// catch(error) {
+//    next(error)
+//  }
+// });
 
+// exports.login = (req, res) =>
+// new Promise (async (resolve, reject) => {
+//   try {
+//     //validation code here
+//     const { errors, isValid } = validateLoginInput(req.body);
+//     // Check validation
+//     if (!isValid) {
+//        reject({message: "Invalid information", error});
+//     }
+//
+//     const email = req.body.email;
+//     const password = req.body.password;
+//
+//     const user = await User.findOne({ email });
+//     if (!user)  reject({message: "User not found"});
+//
+//     const validPassword = await validatePassword(password, user.password);
+//     if (!validPassword)  reject({message: "Inorrect Password"});
+//
+//     const payload = {
+//           id: user._id,
+//           name: user.name,
+//           role: user.role,
+//           email: user.email,
+//           tableData: {}
+//     };
+//
+//     const token = jwt.sign(
+//           payload,
+//           process.env.JWT_SECRET,
+//           {
+//             expiresIn: 31556926 // 1 year in seconds
+//           }
+//         );
+//
+//     resolve({
+//       success: true,
+//       token: "Bearer " + token
+//     });
+//   }
+//   catch(error) {
+//     reject({
+//     message: 'Could not login',
+//     error,
+//   });
+//   }
+// });
 exports.login = async(req, res, next) => {
   try {
     //validation code here
@@ -103,10 +226,10 @@ exports.login = async(req, res, next) => {
     const password = req.body.password;
 
     const user = await User.findOne({ email });
-    if (!user) return next(new Error('Email does not exist.'));
+    if (!user) return res.status(400).json('Email does not exist.');
 
     const validPassword = await validatePassword(password, user.password);
-    if (!validPassword) return next(new Error('Password is not correct.'));
+    if (!validPassword) return res.status(400).json('Password is not correct.');
 
     const payload = {
           id: user._id,
@@ -143,8 +266,8 @@ exports.getUsers = async (req, res, next) => {
 
 exports.getUser = async (req, res, next) => {
   try {
-    const userId = req.params.userId;
-    const user = await User.findById(userId);
+    const email = req.query.email;
+    const user = await User.findOne({email});
 
     if (!user) return next(new Error('User does not exist.'));
     res.status(200).json({
@@ -194,7 +317,7 @@ exports.updateUser = async (req, res, next) => {
 
 exports.deleteUser = async (req, res, next) => {
  try {
-  const id = req.params.userId;
+  const id = req.query.id_d;
 
   await User.findByIdAndDelete(id);
 
@@ -207,3 +330,16 @@ exports.deleteUser = async (req, res, next) => {
   next(error)
  }
 }
+// exports.deleteUser = (req, res) =>
+//   new Promise(async (resolve, reject) => {
+//     try {
+//     const id = req.query.id_d;
+//
+//     await User.findByIdAndDelete(id);
+//
+//     resolve({message: 'User has been deleted'})
+//     }
+//     catch (error) {
+//       reject({message: "could not delete",error})
+//     }
+//   });

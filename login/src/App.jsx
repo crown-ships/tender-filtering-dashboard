@@ -45,9 +45,9 @@ class App extends Component {
         <Router>
           <div className="App">
             <Route exact path="/" component={Landing} />
-            <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
             <Switch>
+              <PrivateRoute exact path="/register" component={Register} />
               <PrivateRoute exact path="/admin-dashboard" component={AdminDashboard} />
               <PrivateRoute exact path="/basic-dashboard" component={BasicDashboard} />
               <PrivateRoute exact path="/delete" component={Delete} />

@@ -27,8 +27,11 @@ class Login extends Component {
     if (this.props.auth.user.role == "admin"){
       this.props.history.push("/admin-dashboard"); // push user to dashboard when they login
     }
-    else if (this.props.auth.user.role == "basic") {
+    else if (this.props.auth.user.role == "staff-member") {
       this.props.history.push("/basic-dashboard");
+    }
+    else {
+      this.props.history.push("/basic-dashboard")
     }
   }
 }
@@ -40,6 +43,9 @@ class Login extends Component {
         }
         else if (nextProps.auth.user.role == "basic") {
           this.props.history.push("/basic-dashboard");
+        }
+        else{
+          this.props.history.push("/basic-dashboard")
         }
       }
   if (nextProps.errors) {

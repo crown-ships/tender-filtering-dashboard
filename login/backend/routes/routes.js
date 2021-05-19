@@ -4,21 +4,18 @@ const signupTemplateCopy = require('../models/signupmodels');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken')
 const userController = require('../server/controllers/userControllers');
+//userController.allowIfLoggedin, userController.grantAccess('create', 'profile'),
+router.post('/signup',  userController.signup);
 
-router.post('/signup', userController.allowIfLoggedin, userController.grantAccess('create', 'profile'), userController.signup);
+router.post('/user',  userController.updateUser);
 
-router.post("/login", userController.login);
+router.delete('/users',  userController.deleteUser);
 
-router.post('/user/:userId', userController.allowIfLoggedin, userController.grantAccess('updateAny', 'profile'), userController.updateUser);
+router.post('/login', userController.login)
 
-router.delete('/user/:userId', userController.allowIfLoggedin, userController.grantAccess('deleteAny', 'profile'), userController.deleteUser);
+router.get('/user/:userId',  userController.getUser);
 
-
-
-router.get('/user/:userId', userController.allowIfLoggedin, userController.grantAccess('readAny', 'profile'), userController.getUser);
-
-router.get('/users', userController.allowIfLoggedin, userController.getUsers);
-
+router.get('/users', userController.getUsers);
 
 
 

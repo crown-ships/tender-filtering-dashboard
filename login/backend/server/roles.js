@@ -16,7 +16,7 @@ ac.grant("admin")
  .updateAny("profile")
  .deleteAny("profile")
  .create("profile")
- 
+
  ac.grant("super-admin")
   .extend("staff-member")
   .extend("admin")

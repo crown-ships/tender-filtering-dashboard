@@ -47,6 +47,7 @@ onSubmit(event, id) {
     password : this.state.password,
     password2 : this.state.password2,
     id: this.state.id,
+    auth: this.props.auth.isAuthenticated,
     role: this.state.role
   }
 

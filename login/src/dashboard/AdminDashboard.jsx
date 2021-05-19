@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../actions/authActions";
 import { getAllUsers, deleteUser } from "../actions/dashboardActions";
-
+import TableScrollbar from 'react-table-scrollbar';
 
 class AdminDashboard extends Component {
 
@@ -21,9 +21,14 @@ class AdminDashboard extends Component {
     this.props.logoutUser();
   }
 
-  deleteClick(id){
-    console.log(id);
-    //this.props.deleteUser(id, this.props.history);
+  deleteClick = id => {
+    console.log(this.props);
+    const input = {
+      id_d:id,
+      id_u:this.props.auth.user.id,
+      auth: this.props.auth.isAuthenticated
+    };
+    this.props.deleteUser(input, this.props.history);
   }
 
 
@@ -52,25 +57,30 @@ class AdminDashboard extends Component {
     }
 
   onGetAllUsersClick = e => {
+    console.log(this.props.auth.isAuthenticated);
+    const params = {
+      id_u: this.props.auth.user.id,
+      auth: this.props.auth.isAuthenticated
+    }
     e.preventDefault();
-    this.props.getAllUsers(this.props.history)
+    this.props.getAllUsers(params, this.props.history)
     .then(data => {
 
       this.setState({
         tableData: data.data
       });
-      this.props.history.push("/admin-dashboard"); 
+      this.props.history.push("/admin-dashboard");
     })
   };
 
   oncreateClick = e => {
     e.preventDefault();
-    this.props.history.push("/register");
+    this.props.history.push("/register")
+
   }
 
   renderTableHeader() {
-        console.log(this.state.tableData);
-        let headerElement = ['name',, 'role', 'email', 'operation', 'update']
+        let headerElement = ['id',, 'name', 'role', 'email','delete', 'update']
 
         return headerElement.map((key, index) => {
             return <th key={index}>{key.toUpperCase()}</th>
@@ -79,9 +89,7 @@ class AdminDashboard extends Component {
 
 
   render() {
-    console.log(this.state.tableData);
     const { user } = this.props.auth;
-    console.log(user.role);
     return (
       <div style={{ height: "100vh" }} className="container valign-wrapper">
         <div className="row">
@@ -95,6 +103,8 @@ class AdminDashboard extends Component {
             </h4>
 
             <div className="col s12 center-align">
+            <div class="scrollbar scrollbar-primary">
+        <div class="force-overflow">
                <table id='students'>
                 <thead>
                   <tr>{this.renderTableHeader()}</tr>
@@ -103,6 +113,8 @@ class AdminDashboard extends Component {
                     {this.renderTableData()}
                 </tbody>
                </table>
+               </div>
+             </div>
            </div>
 
             <p></p>
@@ -129,7 +141,7 @@ class AdminDashboard extends Component {
               onClick={this.onGetAllUsersClick}
               className="btn btn-large waves-effect waves-light hoverable blue accent-3"
             >
-              get
+              refresh
             </button>
             <span> </span>
             <button
@@ -159,5 +171,5 @@ const mapStateToProps = state => ({
 });
 export default connect(
   mapStateToProps,
-  { logoutUser, getAllUsers }
+  { logoutUser, getAllUsers, deleteUser }
 )(withRouter(AdminDashboard));

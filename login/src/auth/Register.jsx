@@ -8,9 +8,9 @@ import classnames from "classnames";
 const Validator = require("validator");
 const isEmpty = require("is-empty");
 
-function validate(name, email, password, password2) {
+function validate(name, email, password, password2, role) {
   let errors = {};
-
+  var letters = /^[A-Za-z " "]+$/;
   name = !isEmpty(name) ? name : "";
   email = !isEmpty(email) ? email : "";
   password = !isEmpty(password) ? password : "";
@@ -20,22 +20,35 @@ function validate(name, email, password, password2) {
   if (Validator.isEmpty(name)) {
     errors.name = "Name field is required";
   }
+  if(!name.match(letters)){
+    errors.name = "Name can only contain alphabets."
+  }
+  if (!Validator.isLength(name, { min: 0, max: 50 })) {
+      errors.name = "Name cannot exceed length of 50 characters.";
+    }
 // Email checks
   if (Validator.isEmpty(email)) {
     errors.email = "Email field is required";
   } else if (!Validator.isEmail(email)) {
     errors.email = "Email is invalid";
   }
+  if(Validator.isEmpty(role)){
+    errors.role = "Role field is required";
+  }
+  else if(!(Validator.equals(role,"staff-member")|| Validator.equals(role,"supervisor")||Validator.equals(role,"admin")||Validator.equals(role,"super-admin"))){
+    errors.role = "Role is invalid.";
+  }
 // Password checks
   if (Validator.isEmpty(password)) {
     errors.password = "Password field is required";
   }
+  else if (!Validator.isLength(password, { min: 6, max: 30 })) {
+      errors.password = "Password must be at least 6 characters";
+    }
 if (Validator.isEmpty(password2)) {
     errors.password2 = "Confirm password field is required";
   }
-if (!Validator.isLength(password, { min: 6, max: 30 })) {
-    errors.password = "Password must be at least 6 characters";
-  }
+
 if (!Validator.equals(password, password2)) {
     errors.password2 = "Passwords must match";
   }
@@ -52,13 +65,14 @@ class Register extends Component {
       email:'',
       password:'',
       password2:'',
-      role: 'staff-member',
+      role: '',
       createdBy: '',
       touched: {
         name: false,
         email: false,
         password: false,
-        password2:false
+        password2:false,
+        role:false
       },
       error: {}
     };
@@ -73,18 +87,29 @@ class Register extends Component {
   componentDidMount() {
       // If logged in and user navigates to Register page, should redirect them to dashboard
       if (!this.props.auth.isAuthenticated) {
-        this.props.history.push("/");
+        this.props.history.push("/login");
       }
     }
 
 
   canBeSubmitted() {
-    const errors = validate(this.state.name, this.state.email, this.state.password, this.state.password2);
+    const errors = validate(this.state.name, this.state.email, this.state.password, this.state.password2, this.state.role);
     const isDisabled = Object.keys(errors).some(x => errors[x]);
     return !isDisabled;
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
+    if (nextProps.auth.isAuthenticated) {
+      if (this.auth.user.role == "admin"){
+        this.props.history.push("/admin-dashboard"); // push user to dashboard when they login
+      }
+      else if (nextProps.auth.user.role == "basic") {
+        this.props.history.push("/basic-dashboard");
+      }
+      else{
+        this.props.history.push("/basic-dashboard")
+      }
+    }
     if (nextProps.errors) {
       this.setState({
         errors: nextProps.errors
@@ -143,19 +168,20 @@ class Register extends Component {
       authentication: this.props.isAuthenticated
     };
 
-    this.props.registerUser(registered, this.props.history);
-
+    this.props.registerUser(registered, this.props.history)
+    .then(this.props.history.push("/admin-dashboard"))
     this.setState({
       name:'',
       email:'',
       password:'',
-      password2:''
+      password2:'',
+      role: ''
     });
 
   }
 
   render() {
-    const errors = validate(this.state.name, this.state.email, this.state.password, this.state.password2);
+    const errors = validate(this.state.name, this.state.email, this.state.password, this.state.password2, this.state.role);
     const isDisabled = Object.keys(errors).some(x => errors[x]);
 
     const shouldMarkError = field => {
@@ -205,17 +231,17 @@ class Register extends Component {
                   <label htmlFor="email">Email</label>
                   <span className="red-text">{shouldMarkError("email") ? errors.email:""}</span>
                 </div>
-                <div className="input-field col s12 newid m6 l6">
-                <label> Roles
-                  <select value = {this.state.role} onChange={this.changeRole}>
-                    <option value="" >Choose your option</option>
-                    <option value="staff-member">Staff Member</option>
-                    <option value="supervisor">Supervisor</option>
-                  </select>
-                </label>
-                  <span className="red-text">{errors.role}</span>
+                <div className="input-field col s12">
+                  <input
+                    type = 'text'
+                    onChange={this.changeRole}
+                    value={this.state.role}
+                    className={shouldMarkError("role") ? "error" : ""}
+                    onBlur={this.handleBlur("role")}
+                  />
+                  <label htmlFor="role">Role</label>
+                  <span className="red-text">{shouldMarkError("role") ? errors.role:""}</span>
                 </div>
-                <p></p>
                 <div className="input-field col s12">
                   <input type = 'password'
                     onChange={this.changePassword}
