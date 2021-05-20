@@ -453,7 +453,28 @@ describe('POST /api/signup Test Case: PASSWORD', () => {
       })
       .expect(400)
       .then(res => {
-        expect(res.text).toMatch(/field is required/)
+        expect(res.text).toMatch(/Password field is required/)
+        done();
+      });
+  });
+
+  it('It should NOT create a new user: Password2 (Empty)',  done => {
+    // Create a new user
+    agent
+      .post('/api/signup')
+      .send({
+        name: "stevin sebastian",
+        email: "joe@gmail.com",
+        password: "13212312",
+        password2: "",
+        role: "admin",
+        userRole: "staff-member",
+        createdBy: "60a39d5782cdd668b85db941",
+        authentication: true
+      })
+      .expect(400)
+      .then(res => {
+        expect(res.text).toMatch(/must match/)
         done();
       });
   });
@@ -480,7 +501,7 @@ describe('POST /api/signup Test Case: PASSWORD', () => {
   });
 });
 
-describe('POST /api/signup Test Case: PASSWORD', () => {
+describe('POST /api/signup Test Case: ROLE', () => {
 
     it('It should NOT create a new user: Role (Empty)',  done => {
       // Create a new user
@@ -524,63 +545,3 @@ describe('POST /api/signup Test Case: PASSWORD', () => {
         });
     });
 });
-// describe('POST /api/login', () => {
-//   it('It should login joe',  done => {
-//
-//     agent
-//       .post('/api/signup')
-//       .send({
-//         name: "joe",
-//         email: "joe@gmail.com",
-//         password: "123123",
-//         password2: "123123",
-//         role: "admin",
-//         userRole: "admin",
-//         createdBy: "60a39d5782cdd668b85db941",
-//         authentication: true
-//       })
-//       .then(res => {
-//         expect(res).toBe({});
-//       });
-//     // Create a new user
-//     agent
-//       .post('/api/login')
-//       .send({
-//         email: "joe@gmail.com",
-//         password: "123123"
-//       })
-//       .then(res => {
-//         expect(res.text).toBe({});
-//         done();
-//       });
-//   });
-//
-//   it('It should not login Joe',  done => {
-//     // Create a new user
-//     agent
-//       .post('/api/login')
-//       .send({
-//         email: "joegmail.com",
-//         password: "123123"
-//       })
-//       .then(res => {
-//         expect(res.text).toBe({});
-//         done();
-//       });
-//   });
-// });
-//
-//
-// describe('GET /api/users', () => {
-//   test('Should return all users in DB',  done => {
-//     let Cookies;
-//
-//     const req = agent.get('/api/users')
-//     .query({id_u:"60a39d5782cdd668b85db941", auth: "true"})
-//     .expect(200)
-//     .then(res => {
-//       expect(res.text).toBe({});
-//       done();
-//     });
-//   });
-// });

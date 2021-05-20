@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">30% </span>
+                <span class="strong">80% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>3/10</span>
+                <span class='fraction'>8/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>3/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>1/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">30% </span>
+                <span class="strong">80% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>3/10</span>
+                <span class='fraction'>8/10</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -75,20 +75,20 @@
 <a name='L16'></a><a href='#L16'>16</a>
 <a name='L17'></a><a href='#L17'>17</a>
 <a name='L18'></a><a href='#L18'>18</a>
-<a name='L19'></a><a href='#L19'>19</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
+<a name='L19'></a><a href='#L19'>19</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -96,17 +96,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const Validator = require("validator");
 const isEmpty = require("is-empty");
 &nbsp;
-module.exports = function <span class="fstat-no" title="function not covered" >validateEmail(</span>data) {
-  let errors = <span class="cstat-no" title="statement not covered" >{};</span>
+module.exports = function validateEmail(data) {
+  let errors = {};
 // Convert empty fields to an empty string so we can use validator functions
-<span class="cstat-no" title="statement not covered" >  data.email = !isEmpty(data.email) ? data.email : "";</span>
+  data.email = !isEmpty(data.email) ? data.email : <span class="branch-1 cbranch-no" title="branch not covered" >"";</span>
 // Email checks
-<span class="cstat-no" title="statement not covered" >  if (Validator.isEmpty(data.email)) {</span>
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (Validator.isEmpty(data.email)) {
 <span class="cstat-no" title="statement not covered" >    errors.email = "Email field is required";</span>
-  } else <span class="cstat-no" title="statement not covered" >if (!Validator.isEmail(data.email)) {</span>
+  } else <span class="missing-if-branch" title="if path not taken" >I</span>if (!Validator.isEmail(data.email)) {
 <span class="cstat-no" title="statement not covered" >    errors.email = "Email is invalid";</span>
   }
-<span class="cstat-no" title="statement not covered" >return {</span>
+return {
     errors,
     isValid: isEmpty(errors)
   };
@@ -118,7 +118,7 @@ module.exports = function <span class="fstat-no" title="function not covered" >v
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed May 19 2021 20:06:19 GMT+0530 (India Standard Time)
+                at Fri May 21 2021 00:48:45 GMT+0530 (India Standard Time)
             </div>
         </div>
         <script src="../../prettify.js"></script>

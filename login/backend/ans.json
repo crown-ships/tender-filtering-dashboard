@@ -1,276 +1,616 @@
 {
-  "numFailedTestSuites":0,
-  "numFailedTests":0,
-  "numPassedTestSuites":3,
-  "numPassedTests":28,
-  "numPendingTestSuites":0,
-  "numPendingTests":0,
-  "numRuntimeErrorTestSuites":0,
-  "numTodoTests":0,
-  "numTotalTestSuites":3,
-  "numTotalTests":28,
-  "openHandles":[],
-  "snapshot":{
-    "added":0,
-    "didUpdate":false,
-    "failure":false,
-    "filesAdded":0,
-    "filesRemoved":0,
-    "filesRemovedList":[],
-    "filesUnmatched":0,
-    "filesUpdated":0,
-    "matched":0,
-    "total":0,
-    "unchecked":0,
-    "uncheckedKeysByFile":[],
-    "unmatched":0,
-    "updated":0
-    },
-    "startTime":1621434619639,
-    "success":true,
-    "testResults":[
-      {"assertionResults":
-        [
-          {
-            "ancestorTitles":["POST /api/signup Ideal Case"],
-            "failureMessages":[],
-            "fullName":"POST /api/signup Ideal Case It should create a new user: Expected input",
-            "location":null,
-            "status":"passed",
-            "title":"It should create a new user: Expected input"
-          },
-          {
-            "ancestorTitles":["POST /api/signup Test Case: EMAIL"],
-            "failureMessages":[],
-            "fullName":"POST /api/signup Test Case: EMAIL It should create a new user: with symbols",
-            "location":null,
-            "status":"passed",
-            "title":"It should create a new user: with symbols"
-          },
-          {
-            "ancestorTitles":["POST /api/signup Test Case: EMAIL"],
-            "failureMessages":[],
-            "fullName":"POST /api/signup Test Case: EMAIL It should create a new user: with ONLY symbols",
-            "location":null,
-            "status":"passed",
-            "title":"It should create a new user: with ONLY symbols"
-          },
-          {
-            "ancestorTitles":["POST /api/signup Test Case: EMAIL"],
-            "failureMessages":[],
-            "fullName":"POST /api/signup Test Case: EMAIL It should NOT create a new user: Empty Email",
-            "location":null,
-            "status":"passed",
-            "title":"It should NOT create a new user: Empty Email"
-          },
-          {
-            "ancestorTitles":["POST /api/signup Test Case: EMAIL"],
-            "failureMessages":[],
-            "fullName":"POST /api/signup Test Case: EMAIL It should NOT create a new user: Existing Email",
-            "location":null,
-            "status":"passed",
-            "title":"It should NOT create a new user: Existing Email"
-          },
-          {
-            "ancestorTitles":["POST /api/signup Test Case: EMAIL"],
-            "failureMessages":[],
-            "fullName":"POST /api/signup Test Case: EMAIL It should NOT create a new user: Invalid Email (length)",
-            "location":null,"status":"passed",
-            "title":"It should NOT create a new user: Invalid Email (length)"
-          },
-          {
-            "ancestorTitles":["POST /api/signup Test Case: EMAIL"],
-            "failureMessages":[],
-            "fullName":"POST /api/signup Test Case: EMAIL It should NOT create a new user: Invalid Email (no .)",
-            "location":null,
-            "status":"passed",
-            "title":"It should NOT create a new user: Invalid Email (no .)"
-          },
-          {
-            "ancestorTitles":["POST /api/signup Test Case: EMAIL"],
-            "failureMessages":[],
-            "fullName":"POST /api/signup Test Case: EMAIL It should NOT create a new user: Invalid Email (no @)",
-            "location":null,
-            "status":"passed","title":"It should NOT create a new user: Invalid Email (no @)"
-          },
-          {
-            "ancestorTitles":["POST /api/signup Test Case: EMAIL"],
-            "failureMessages":[],
-            "fullName":"POST /api/signup Test Case: EMAIL It should NOT create a new user: Invalid Email (no domain)",
-            "location":null,
-            "status":"passed","title":"It should NOT create a new user: Invalid Email (no domain)"
-          },
-          {
-            "ancestorTitles":["POST /api/signup Test Case: EMAIL"],
-            "failureMessages":[],"fullName":"POST /api/signup Test Case: EMAIL It should NOT create a new user: Invalid Email (no name)",
-            "location":null,
-            "status":"passed",
-            "title":"It should NOT create a new user: Invalid Email (no name)"
-          },
-          {
-            "ancestorTitles":["POST /api/signup Test Case: EMAIL"],"failureMessages":[],
-            "fullName":"POST /api/signup Test Case: EMAIL It should NOT create a new user: Invalid Email (..com)",
-            "location":null,
-            "status":"passed",
-            "title":"It should NOT create a new user: Invalid Email (..com)"
-          },
-          {
-            "ancestorTitles":["POST /api/signup Test Case: EMAIL"],"failureMessages":[],
-            "fullName":"POST /api/signup Test Case: EMAIL It should NOT create a new user: Invalid Email (@@)",
-            "location":null,
-            "status":"passed",
-            "title":"It should NOT create a new user: Invalid Email (@@)"
-          },
-          {
-            "ancestorTitles":["POST /api/signup Test Case: NAME"],
-            "failureMessages":[],
-            "fullName":"POST /api/signup Test Case: NAME It should create a new user: Name (with space)",
-            "location":null,
-            "status":"passed",
-            "title":"It should create a new user: Name (with space)"
-          },
-          {
-            "ancestorTitles":["POST /api/signup Test Case: NAME"],
-            "failureMessages":[],
-            "fullName":"POST /api/signup Test Case: NAME It should NOT create a new user: Invalid Name (length)",
-            "location":null,
-            "status":"passed",
-            "title":"It should NOT create a new user: Invalid Name (length)"
-          },
-          {
-            "ancestorTitles":["POST /api/signup Test Case: NAME"],
-            "failureMessages":[],
-            "fullName":"POST /api/signup Test Case: NAME It should NOT create a new user: Name (with special chars)",
-            "location":null,
-            "status":"passed",
-            "title":"It should NOT create a new user: Name (with special chars)"
-          },
-          {
-            "ancestorTitles":["POST /api/signup Test Case: NAME"],"failureMessages":[],
-            "fullName":"POST /api/signup Test Case: NAME It should NOT create a new user: Name (with numbers)",
-            "location":null,
-            "status":"passed",
-            "title":"It should NOT create a new user: Name (with numbers)"
-          },
-          {
-            "ancestorTitles":["POST /api/signup Test Case: NAME"],"failureMessages":[],
-            "fullName":"POST /api/signup Test Case: NAME It should NOT create a new user: Name (empty)",
-            "location":null,
-            "status":"passed",
-            "title":"It should NOT create a new user: Name (empty)"
-          },
-          {
-            "ancestorTitles":["POST /api/signup Test Case: PASSWORD"],
-            "failureMessages":[],
-            "fullName":"POST /api/signup Test Case: PASSWORD It should NOT create a new user: Password (<6 digits)",
-            "location":null,
-            "status":"passed",
-            "title":"It should NOT create a new user: Password (<6 digits)"
-          },
-          {
-            "ancestorTitles":["POST /api/signup Test Case: PASSWORD"],
-            "failureMessages":[],
-            "fullName":"POST /api/signup Test Case: PASSWORD It should NOT create a new user: Password (30< digits)",
-            "location":null,
-            "status":"passed",
-            "title":"It should NOT create a new user: Password (30< digits)"
-          },
-          {
-            "ancestorTitles":["POST /api/signup Test Case: PASSWORD"],
-            "failureMessages":[],
-            "fullName":"POST /api/signup Test Case: PASSWORD It should NOT create a new user: Password (Empty)",
-            "location":null,
-            "status":"passed",
-            "title":"It should NOT create a new user: Password (Empty)"
-          },
-          {
-            "ancestorTitles":["POST /api/signup Test Case: PASSWORD"],
-            "failureMessages":[],
-            "fullName":"POST /api/signup Test Case: PASSWORD It should NOT create a new user: Password2 (not match)",
-            "location":null,
-            "status":"passed",
-            "title":"It should NOT create a new user: Password2 (not match)"
-          },
-          {
-            "ancestorTitles":["POST /api/signup Test Case: PASSWORD"],
-            "failureMessages":[],
-            "fullName":"POST /api/signup Test Case: PASSWORD It should NOT create a new user: Role (Empty)",
-            "location":null,
-            "status":"passed",
-            "title":"It should NOT create a new user: Role (Empty)"
-          },
-          {
-            "ancestorTitles":["POST /api/signup Test Case: PASSWORD"],
-            "failureMessages":[],
-            "fullName":"POST /api/signup Test Case: PASSWORD It should NOT create a new user: Role (Invalid)",
-            "location":null,
-            "status":"passed",
-            "title":"It should NOT create a new user: Role (Invalid)"
-          }
-        ],
-        "endTime":1621434626593,
-        "message":"",
-        "name":"C:\\Users\\Stevin Sebastian\\Documents\\GitHub\\user-login-signup\\login\\backend\\__test__\\signup.test.js",
-        "startTime":1621434619807,
-        "status":"passed",
-        "summary":""
+   "numFailedTestSuites":0,
+   "numFailedTests":0,
+   "numPassedTestSuites":6,
+   "numPassedTests":43,
+   "numPendingTestSuites":0,
+   "numPendingTests":0,
+   "numRuntimeErrorTestSuites":0,
+   "numTodoTests":0,
+   "numTotalTestSuites":6,
+   "numTotalTests":43,
+   "openHandles":[
+
+   ],
+   "snapshot":{
+      "added":0,
+      "didUpdate":false,
+      "failure":false,
+      "filesAdded":0,
+      "filesRemoved":0,
+      "filesRemovedList":[
+
+      ],
+      "filesUnmatched":0,
+      "filesUpdated":0,
+      "matched":0,
+      "total":0,
+      "unchecked":0,
+      "uncheckedKeysByFile":[
+
+      ],
+      "unmatched":0,
+      "updated":0
+   },
+   "startTime":1621538450450,
+   "success":true,
+   "testResults":[
+      {
+         "assertionResults":[
+            {
+               "ancestorTitles":[
+                  "POST /api/users Ideal Case"
+               ],
+               "failureMessages":[
+
+               ],
+               "fullName":"POST /api/users Ideal Case It should update one user",
+               "location":null,
+               "status":"passed",
+               "title":"It should update one user"
+            }
+         ],
+         "endTime":1621538460986,
+         "message":"",
+         "name":"C:\\Users\\Stevin Sebastian\\Documents\\GitHub\\user-login-signup\\login\\backend\\__test__\\update.test.js",
+         "startTime":1621538451906,
+         "status":"passed",
+         "summary":""
       },
-      {"assertionResults":
-        [
-          {
-            "ancestorTitles":["POST /api/login Ideal Case"],
-            "failureMessages":[],
-            "fullName":"POST /api/login Ideal Case It should login the user",
-            "location":null,
-            "status":"passed",
-            "title":"It should login the user"
-          },
-          {
-            "ancestorTitles":["POST /api/login Test Case: EMAIL"],"failureMessages":[],
-            "fullName":"POST /api/login Test Case: EMAIL It should NOT login the user: Email (invalid)",
-            "location":null,
-            "status":"passed",
-            "title":"It should NOT login the user: Email (invalid)"
-          },
-          {
-            "ancestorTitles":["POST /api/login Test Case: EMAIL"],"failureMessages":[],
-            "fullName":"POST /api/login Test Case: EMAIL It should NOT login the user: Email (empty)",
-            "location":null,
-            "status":"passed",
-            "title":"It should NOT login the user: Email (empty)"
-          },
-          {
-            "ancestorTitles":["POST /api/login Test Case: EMAIL"],"failureMessages":[],
-            "fullName":"POST /api/login Test Case: EMAIL It should NOT login the user: Email (Not exist)",
-            "location":null,
-            "status":"passed",
-            "title":"It should NOT login the user: Email (Not exist)"
-          }
-        ],
-        "endTime":1621434628557,
-        "message":"",
-        "name":"C:\\Users\\Stevin Sebastian\\Documents\\GitHub\\user-login-signup\\login\\backend\\__test__\\login.test.js",
-        "startTime":1621434626657,
-        "status":"passed",
-        "summary":""
+      {
+         "assertionResults":[
+            {
+               "ancestorTitles":[
+                  "GET /api/user Ideal Case"
+               ],
+               "failureMessages":[
+
+               ],
+               "fullName":"GET /api/user Ideal Case It should return one user",
+               "location":null,
+               "status":"passed",
+               "title":"It should return one user"
+            },
+            {
+               "ancestorTitles":[
+                  "GET /api/user Test Case: AUTH"
+               ],
+               "failureMessages":[
+
+               ],
+               "fullName":"GET /api/user Test Case: AUTH It should NOT return one user info: (Not Logged In)",
+               "location":null,
+               "status":"passed",
+               "title":"It should NOT return one user info: (Not Logged In)"
+            },
+            {
+               "ancestorTitles":[
+                  "GET /api/user Test Case: ACCESS CONTROL"
+               ],
+               "failureMessages":[
+
+               ],
+               "fullName":"GET /api/user Test Case: ACCESS CONTROL It should return one user info: (Permission Check: STAFF_MEMBER)",
+               "location":null,
+               "status":"passed",
+               "title":"It should return one user info: (Permission Check: STAFF_MEMBER)"
+            },
+            {
+               "ancestorTitles":[
+                  "GET /api/user Test Case: ACCESS CONTROL"
+               ],
+               "failureMessages":[
+
+               ],
+               "fullName":"GET /api/user Test Case: ACCESS CONTROL It should return one user info: (Permission Check: SUPER-ADMIN)",
+               "location":null,
+               "status":"passed",
+               "title":"It should return one user info: (Permission Check: SUPER-ADMIN)"
+            },
+            {
+               "ancestorTitles":[
+                  "GET /api/user Test Case: ACCESS CONTROL"
+               ],
+               "failureMessages":[
+
+               ],
+               "fullName":"GET /api/user Test Case: ACCESS CONTROL It should NOT return one user info: (Permission Check: INVALID USER)",
+               "location":null,
+               "status":"passed",
+               "title":"It should NOT return one user info: (Permission Check: INVALID USER)"
+            }
+         ],
+         "endTime":1621538461925,
+         "message":"",
+         "name":"C:\\Users\\Stevin Sebastian\\Documents\\GitHub\\user-login-signup\\login\\backend\\__test__\\get.test.js",
+         "startTime":1621538451934,
+         "status":"passed",
+         "summary":""
       },
-      {"assertionResults":
-        [
-          {
-            "ancestorTitles":["GET /api/users Ideal Case"],
-            "failureMessages":[],
-            "fullName":"GET /api/users Ideal Case It should return all users",
-            "location":null,
-            "status":"passed",
-            "title":"It should return all users"
-          }
-        ],
-        "endTime":1621434630212,
-        "message":"","name":"C:\\Users\\Stevin Sebastian\\Documents\\GitHub\\user-login-signup\\login\\backend\\__test__\\getAll.test.js",
-        "startTime":1621434628600,
-        "status":"passed",
-        "summary":""
+      {
+         "assertionResults":[
+            {
+               "ancestorTitles":[
+                  "DELETE /api/users Ideal Case"
+               ],
+               "failureMessages":[
+
+               ],
+               "fullName":"DELETE /api/users Ideal Case It should delete one user",
+               "location":null,
+               "status":"passed",
+               "title":"It should delete one user"
+            },
+            {
+               "ancestorTitles":[
+                  "DELETE /api/users Test Case: AUTH"
+               ],
+               "failureMessages":[
+
+               ],
+               "fullName":"DELETE /api/users Test Case: AUTH It should NOT delete a user: (Not Logged In)",
+               "location":null,
+               "status":"passed",
+               "title":"It should NOT delete a user: (Not Logged In)"
+            },
+            {
+               "ancestorTitles":[
+                  "DELETE /api/users Test Case: ACCESS CONTROL"
+               ],
+               "failureMessages":[
+
+               ],
+               "fullName":"DELETE /api/users Test Case: ACCESS CONTROL It should NOT delete a user: (Permission Check: STAFF_MEMBER)",
+               "location":null,
+               "status":"passed",
+               "title":"It should NOT delete a user: (Permission Check: STAFF_MEMBER)"
+            },
+            {
+               "ancestorTitles":[
+                  "DELETE /api/users Test Case: ACCESS CONTROL"
+               ],
+               "failureMessages":[
+
+               ],
+               "fullName":"DELETE /api/users Test Case: ACCESS CONTROL It should NOT delete a user: (Permission Check: SUPERVISOR)",
+               "location":null,
+               "status":"passed",
+               "title":"It should NOT delete a user: (Permission Check: SUPERVISOR)"
+            },
+            {
+               "ancestorTitles":[
+                  "DELETE /api/users Test Case: ACCESS CONTROL"
+               ],
+               "failureMessages":[
+
+               ],
+               "fullName":"DELETE /api/users Test Case: ACCESS CONTROL It should NOT delete a user: (Permission Check: INVALID USER)",
+               "location":null,
+               "status":"passed",
+               "title":"It should NOT delete a user: (Permission Check: INVALID USER)"
+            },
+            {
+               "ancestorTitles":[
+                  "DELETE /api/users Test Case: ACCESS CONTROL"
+               ],
+               "failureMessages":[
+
+               ],
+               "fullName":"DELETE /api/users Test Case: ACCESS CONTROL It should NOT delete a user: (ADMIN deleted SUPERADMIN)",
+               "location":null,
+               "status":"passed",
+               "title":"It should NOT delete a user: (ADMIN deleted SUPERADMIN)"
+            }
+         ],
+         "endTime":1621538462217,
+         "message":"",
+         "name":"C:\\Users\\Stevin Sebastian\\Documents\\GitHub\\user-login-signup\\login\\backend\\__test__\\delete.test.js",
+         "startTime":1621538452023,
+         "status":"passed",
+         "summary":""
+      },
+      {
+         "assertionResults":[
+            {
+               "ancestorTitles":[
+                  "POST /api/login Ideal Case"
+               ],
+               "failureMessages":[
+
+               ],
+               "fullName":"POST /api/login Ideal Case It should login the user",
+               "location":null,
+               "status":"passed",
+               "title":"It should login the user"
+            },
+            {
+               "ancestorTitles":[
+                  "POST /api/login Test Case: EMAIL"
+               ],
+               "failureMessages":[
+
+               ],
+               "fullName":"POST /api/login Test Case: EMAIL It should NOT login the user: Email (invalid)",
+               "location":null,
+               "status":"passed",
+               "title":"It should NOT login the user: Email (invalid)"
+            },
+            {
+               "ancestorTitles":[
+                  "POST /api/login Test Case: EMAIL"
+               ],
+               "failureMessages":[
+
+               ],
+               "fullName":"POST /api/login Test Case: EMAIL It should NOT login the user: Email (empty)",
+               "location":null,
+               "status":"passed",
+               "title":"It should NOT login the user: Email (empty)"
+            },
+            {
+               "ancestorTitles":[
+                  "POST /api/login Test Case: EMAIL"
+               ],
+               "failureMessages":[
+
+               ],
+               "fullName":"POST /api/login Test Case: EMAIL It should NOT login the user: Email (Not exist)",
+               "location":null,
+               "status":"passed",
+               "title":"It should NOT login the user: Email (Not exist)"
+            },
+            {
+               "ancestorTitles":[
+                  "POST /api/login Test Case: PASSWORD"
+               ],
+               "failureMessages":[
+
+               ],
+               "fullName":"POST /api/login Test Case: PASSWORD It should NOT login the user: Password (Empty)",
+               "location":null,
+               "status":"passed",
+               "title":"It should NOT login the user: Password (Empty)"
+            },
+            {
+               "ancestorTitles":[
+                  "POST /api/login Test Case: PASSWORD"
+               ],
+               "failureMessages":[
+
+               ],
+               "fullName":"POST /api/login Test Case: PASSWORD It should NOT login the user: Password (Incorrect)",
+               "location":null,
+               "status":"passed",
+               "title":"It should NOT login the user: Password (Incorrect)"
+            }
+         ],
+         "endTime":1621538464643,
+         "message":"",
+         "name":"C:\\Users\\Stevin Sebastian\\Documents\\GitHub\\user-login-signup\\login\\backend\\__test__\\login.test.js",
+         "startTime":1621538461046,
+         "status":"passed",
+         "summary":""
+      },
+      {
+         "assertionResults":[
+            {
+               "ancestorTitles":[
+                  "GET /api/users Ideal Case"
+               ],
+               "failureMessages":[
+
+               ],
+               "fullName":"GET /api/users Ideal Case It should return all users",
+               "location":null,
+               "status":"passed",
+               "title":"It should return all users"
+            }
+         ],
+         "endTime":1621538464841,
+         "message":"",
+         "name":"C:\\Users\\Stevin Sebastian\\Documents\\GitHub\\user-login-signup\\login\\backend\\__test__\\getAll.test.js",
+         "startTime":1621538462267,
+         "status":"passed",
+         "summary":""
+      },
+      {
+         "assertionResults":[
+            {
+               "ancestorTitles":[
+                  "POST /api/signup Ideal Case"
+               ],
+               "failureMessages":[
+
+               ],
+               "fullName":"POST /api/signup Ideal Case It should create a new user: Expected input",
+               "location":null,
+               "status":"passed",
+               "title":"It should create a new user: Expected input"
+            },
+            {
+               "ancestorTitles":[
+                  "POST /api/signup Test Case: EMAIL"
+               ],
+               "failureMessages":[
+
+               ],
+               "fullName":"POST /api/signup Test Case: EMAIL It should create a new user: with symbols",
+               "location":null,
+               "status":"passed",
+               "title":"It should create a new user: with symbols"
+            },
+            {
+               "ancestorTitles":[
+                  "POST /api/signup Test Case: EMAIL"
+               ],
+               "failureMessages":[
+
+               ],
+               "fullName":"POST /api/signup Test Case: EMAIL It should create a new user: with ONLY symbols",
+               "location":null,
+               "status":"passed",
+               "title":"It should create a new user: with ONLY symbols"
+            },
+            {
+               "ancestorTitles":[
+                  "POST /api/signup Test Case: EMAIL"
+               ],
+               "failureMessages":[
+
+               ],
+               "fullName":"POST /api/signup Test Case: EMAIL It should NOT create a new user: Empty Email",
+               "location":null,
+               "status":"passed",
+               "title":"It should NOT create a new user: Empty Email"
+            },
+            {
+               "ancestorTitles":[
+                  "POST /api/signup Test Case: EMAIL"
+               ],
+               "failureMessages":[
+
+               ],
+               "fullName":"POST /api/signup Test Case: EMAIL It should NOT create a new user: Existing Email",
+               "location":null,
+               "status":"passed",
+               "title":"It should NOT create a new user: Existing Email"
+            },
+            {
+               "ancestorTitles":[
+                  "POST /api/signup Test Case: EMAIL"
+               ],
+               "failureMessages":[
+
+               ],
+               "fullName":"POST /api/signup Test Case: EMAIL It should NOT create a new user: Invalid Email (length)",
+               "location":null,
+               "status":"passed",
+               "title":"It should NOT create a new user: Invalid Email (length)"
+            },
+            {
+               "ancestorTitles":[
+                  "POST /api/signup Test Case: EMAIL"
+               ],
+               "failureMessages":[
+
+               ],
+               "fullName":"POST /api/signup Test Case: EMAIL It should NOT create a new user: Invalid Email (no .)",
+               "location":null,
+               "status":"passed",
+               "title":"It should NOT create a new user: Invalid Email (no .)"
+            },
+            {
+               "ancestorTitles":[
+                  "POST /api/signup Test Case: EMAIL"
+               ],
+               "failureMessages":[
+
+               ],
+               "fullName":"POST /api/signup Test Case: EMAIL It should NOT create a new user: Invalid Email (no @)",
+               "location":null,
+               "status":"passed",
+               "title":"It should NOT create a new user: Invalid Email (no @)"
+            },
+            {
+               "ancestorTitles":[
+                  "POST /api/signup Test Case: EMAIL"
+               ],
+               "failureMessages":[
+
+               ],
+               "fullName":"POST /api/signup Test Case: EMAIL It should NOT create a new user: Invalid Email (no domain)",
+               "location":null,
+               "status":"passed",
+               "title":"It should NOT create a new user: Invalid Email (no domain)"
+            },
+            {
+               "ancestorTitles":[
+                  "POST /api/signup Test Case: EMAIL"
+               ],
+               "failureMessages":[
+
+               ],
+               "fullName":"POST /api/signup Test Case: EMAIL It should NOT create a new user: Invalid Email (no name)",
+               "location":null,
+               "status":"passed",
+               "title":"It should NOT create a new user: Invalid Email (no name)"
+            },
+            {
+               "ancestorTitles":[
+                  "POST /api/signup Test Case: EMAIL"
+               ],
+               "failureMessages":[
+
+               ],
+               "fullName":"POST /api/signup Test Case: EMAIL It should NOT create a new user: Invalid Email (..com)",
+               "location":null,
+               "status":"passed",
+               "title":"It should NOT create a new user: Invalid Email (..com)"
+            },
+            {
+               "ancestorTitles":[
+                  "POST /api/signup Test Case: EMAIL"
+               ],
+               "failureMessages":[
+
+               ],
+               "fullName":"POST /api/signup Test Case: EMAIL It should NOT create a new user: Invalid Email (@@)",
+               "location":null,
+               "status":"passed",
+               "title":"It should NOT create a new user: Invalid Email (@@)"
+            },
+            {
+               "ancestorTitles":[
+                  "POST /api/signup Test Case: NAME"
+               ],
+               "failureMessages":[
+
+               ],
+               "fullName":"POST /api/signup Test Case: NAME It should create a new user: Name (with space)",
+               "location":null,
+               "status":"passed",
+               "title":"It should create a new user: Name (with space)"
+            },
+            {
+               "ancestorTitles":[
+                  "POST /api/signup Test Case: NAME"
+               ],
+               "failureMessages":[
+
+               ],
+               "fullName":"POST /api/signup Test Case: NAME It should NOT create a new user: Invalid Name (length)",
+               "location":null,
+               "status":"passed",
+               "title":"It should NOT create a new user: Invalid Name (length)"
+            },
+            {
+               "ancestorTitles":[
+                  "POST /api/signup Test Case: NAME"
+               ],
+               "failureMessages":[
+
+               ],
+               "fullName":"POST /api/signup Test Case: NAME It should NOT create a new user: Name (with special chars)",
+               "location":null,
+               "status":"passed",
+               "title":"It should NOT create a new user: Name (with special chars)"
+            },
+            {
+               "ancestorTitles":[
+                  "POST /api/signup Test Case: NAME"
+               ],
+               "failureMessages":[
+
+               ],
+               "fullName":"POST /api/signup Test Case: NAME It should NOT create a new user: Name (with numbers)",
+               "location":null,
+               "status":"passed",
+               "title":"It should NOT create a new user: Name (with numbers)"
+            },
+            {
+               "ancestorTitles":[
+                  "POST /api/signup Test Case: NAME"
+               ],
+               "failureMessages":[
+
+               ],
+               "fullName":"POST /api/signup Test Case: NAME It should NOT create a new user: Name (empty)",
+               "location":null,
+               "status":"passed",
+               "title":"It should NOT create a new user: Name (empty)"
+            },
+            {
+               "ancestorTitles":[
+                  "POST /api/signup Test Case: PASSWORD"
+               ],
+               "failureMessages":[
+
+               ],
+               "fullName":"POST /api/signup Test Case: PASSWORD It should NOT create a new user: Password (<6 digits)",
+               "location":null,
+               "status":"passed",
+               "title":"It should NOT create a new user: Password (<6 digits)"
+            },
+            {
+               "ancestorTitles":[
+                  "POST /api/signup Test Case: PASSWORD"
+               ],
+               "failureMessages":[
+
+               ],
+               "fullName":"POST /api/signup Test Case: PASSWORD It should NOT create a new user: Password (30< digits)",
+               "location":null,
+               "status":"passed",
+               "title":"It should NOT create a new user: Password (30< digits)"
+            },
+            {
+               "ancestorTitles":[
+                  "POST /api/signup Test Case: PASSWORD"
+               ],
+               "failureMessages":[
+
+               ],
+               "fullName":"POST /api/signup Test Case: PASSWORD It should NOT create a new user: Password (Empty)",
+               "location":null,
+               "status":"passed",
+               "title":"It should NOT create a new user: Password (Empty)"
+            },
+            {
+               "ancestorTitles":[
+                  "POST /api/signup Test Case: PASSWORD"
+               ],
+               "failureMessages":[
+
+               ],
+               "fullName":"POST /api/signup Test Case: PASSWORD It should NOT create a new user: Password2 (Empty)",
+               "location":null,
+               "status":"passed",
+               "title":"It should NOT create a new user: Password2 (Empty)"
+            },
+            {
+               "ancestorTitles":[
+                  "POST /api/signup Test Case: PASSWORD"
+               ],
+               "failureMessages":[
+
+               ],
+               "fullName":"POST /api/signup Test Case: PASSWORD It should NOT create a new user: Password2 (not match)",
+               "location":null,
+               "status":"passed",
+               "title":"It should NOT create a new user: Password2 (not match)"
+            },
+            {
+               "ancestorTitles":[
+                  "POST /api/signup Test Case: ROLE"
+               ],
+               "failureMessages":[
+
+               ],
+               "fullName":"POST /api/signup Test Case: ROLE It should NOT create a new user: Role (Empty)",
+               "location":null,
+               "status":"passed",
+               "title":"It should NOT create a new user: Role (Empty)"
+            },
+            {
+               "ancestorTitles":[
+                  "POST /api/signup Test Case: ROLE"
+               ],
+               "failureMessages":[
+
+               ],
+               "fullName":"POST /api/signup Test Case: ROLE It should NOT create a new user: Role (Invalid)",
+               "location":null,
+               "status":"passed",
+               "title":"It should NOT create a new user: Role (Invalid)"
+            }
+         ],
+         "endTime":1621538465458,
+         "message":"",
+         "name":"C:\\Users\\Stevin Sebastian\\Documents\\GitHub\\user-login-signup\\login\\backend\\__test__\\signup.test.js",
+         "startTime":1621538461972,
+         "status":"passed",
+         "summary":""
       }
-    ],
-    "wasInterrupted":false
-  }
+   ],
+   "wasInterrupted":false
+}

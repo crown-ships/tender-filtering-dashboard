@@ -12,32 +12,31 @@ const { roles } = require('../roles')
 exports.grantAccess = function(action, resource) {
  return async (req, res, next) => {
   try {
-   id = req.query.id_u;
-  // res.status(400).json(id);
-  const user = await User.findById(id);
-   const role = user.role;
-   //res.status(400).json({id: role});
-   const permission = roles.can(role)[action](resource);
-   //res.status(400).json({message:permission.granted});
-   if (permission.granted == false) {
+   email = req.query.email;
+  // res.status(400).json(email);
+  const user = await User.findOne({email});
+  if(user) {
+    const role = user.role;
+    //res.status(200).json({id: role});
+    const permission = roles.can(role)[action](resource);
+     //res.status(400).json({message:permission.granted});
+     if (permission.granted == false) {
+       return res.status(401).json({
+         error: "You don't have enough permission to perform this action"
+       });
+     }
+    next()
+  }
+  else{
     return res.status(401).json({
-     error: "You don't have enough permission to perform this action"
+      error: "You don't have enough permission to perform this action"
     });
-    }
-    else {
-    if (role == "admin"){
-      if(req.body.role == "super-admin" || req.body.role == "admin"){
-        return res.status(401).json({
-         error: "Action forbidden: Not allowed to change this user."
-        });
-      }
-    }
   }
-   next()
-  } catch (error) {
-   next(error)
   }
- }
+  catch (error) {
+    next(error)
+  }
+}
 }
 // exports.grantAccess = (req, res, action, resource) =>
 //  new Promise (async (resolve, reject) => {
@@ -71,11 +70,18 @@ exports.allowIfLoggedin = async (req, res, next) => {
  try {
 
   const user = req.query.auth;
+
+  if (typeof user === 'string' || user instanceof String)
+    userBool = (user.toLowerCase() === "true");
+  else {
+    userBool = user;
+  }
   //res.status(400).json({user:user});
-  if (!user)
+  if (userBool==false) {
    return res.status(400).json({
     error: "You need to be logged in to access this route"
-  });
+    });
+  }
    next();
   } catch (error) {
    next(error);
@@ -229,7 +235,7 @@ exports.login = async(req, res, next) => {
     if (!user) return res.status(400).json('Email does not exist.');
 
     const validPassword = await validatePassword(password, user.password);
-    if (!validPassword) return res.status(400).json('Password is not correct.');
+    if (!validPassword) return res.status(400).json('Password is incorrect.');
 
     const payload = {
           id: user._id,
@@ -267,6 +273,7 @@ exports.getUsers = async (req, res, next) => {
 exports.getUser = async (req, res, next) => {
   try {
     const email = req.query.email;
+  //  res.status(200).json(({email}));
     const user = await User.findOne({email});
 
     if (!user) return next(new Error('User does not exist.'));
@@ -278,10 +285,26 @@ exports.getUser = async (req, res, next) => {
     next(error)
   }
 }
-
+ //validate role
 exports.updateUser = async (req, res, next) => {
  try {
-   const userId = req.params.userId;
+   const email = req.query.email;
+   const email_upd = req.query.emailupdate;
+
+   const user_req = await User.find({email:email});
+   const user_upd = await User.find({email:email_upd});
+
+   const userRole = user_req[0].role;
+   const updateRole = user_upd[0].role;
+
+   if (userRole == "admin") {
+     if(updateRole == "super-admin" || updateRole == "admin") {
+       res.status(401).json({
+         error: "Action forbidden: Not allowed to change this user."
+       });
+      }
+    }
+
    const userBody = req.body;
    if (userBody.email)
    {
@@ -299,11 +322,12 @@ exports.updateUser = async (req, res, next) => {
      if (!isValid) {
        return res.status(400).json(errors);
      }
+     userBody.password = await hashPassword(userBody.password);
+     userBody.password2 = await hashPassword(userBody.password);
    }
-   userBody.password = await hashPassword(userBody.password);
-   userBody.password2 = await hashPassword(userBody.password);
-   await User.findByIdAndUpdate(userId, userBody);
-   const user = await User.findById(userId);
+
+   await User.findByIdAndUpdate(user_upd[0]._id, userBody);
+   const user = await User.findById(user_upd[0]._id);
 
    res.status(200).json({
     data: user,
@@ -317,10 +341,25 @@ exports.updateUser = async (req, res, next) => {
 
 exports.deleteUser = async (req, res, next) => {
  try {
-  const id = req.query.id_d;
 
-  await User.findByIdAndDelete(id);
+  const email = req.query.email;
+  const email_del = req.query.emailDelete;
 
+  const user_req = await User.find({email:email});
+  const user_delete = await User.find({email:email_del});
+
+  const userRole = user_req[0].role;
+  const deleteRole = user_delete[0].role;
+
+  if (userRole == "admin") {
+    if(deleteRole == "super-admin" || deleteRole == "admin") {
+      res.status(401).json({
+        error: "Action forbidden: Not allowed to change this user."
+      });
+     }
+   }
+
+  await User.findByIdAndDelete(user_delete[0]._id);
   res.status(200).json({
    data: null,
    message: 'User has been deleted'

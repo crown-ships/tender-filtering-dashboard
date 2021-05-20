@@ -129,3 +129,62 @@ describe('POST /api/login Test Case: EMAIL', () => {
       });
   });
 });
+
+describe('POST /api/login Test Case: PASSWORD', () => {
+  it('It should NOT login the user: Password (Empty)',  done => {
+    // Create a new user
+    agent
+      .post('/api/signup')
+      .send({
+        name: "joe",
+        email: "joe@gmail.com",
+        password: "123123",
+        password2: "123123",
+        role: "admin",
+        userRole: "admin",
+        createdBy: "60a39d5782cdd668b85db941",
+        authentication: true
+      })
+      .then(resp => {
+        agent.post('/api/login')
+        .send({
+          email: "joe@gmail.com",
+          password: ""
+        })
+        .expect(400)
+        .then(res => {
+          const data = res.text;
+          expect(data).toMatch(/Password field is required/);
+          done();
+        });
+      });
+  });
+  it('It should NOT login the user: Password (Incorrect)',  done => {
+    // Create a new user
+    agent
+      .post('/api/signup')
+      .send({
+        name: "joe",
+        email: "joe@gmail.com",
+        password: "123123",
+        password2: "123123",
+        role: "admin",
+        userRole: "admin",
+        createdBy: "60a39d5782cdd668b85db941",
+        authentication: true
+      })
+      .then(resp => {
+        agent.post('/api/login')
+        .send({
+          email: "joe@gmail.com",
+          password: "1231"
+        })
+        .expect(400)
+        .then(res => {
+          const data = res.text;
+          expect(data).toMatch(/Password is incorrect/);
+          done();
+        });
+      });
+  });
+});

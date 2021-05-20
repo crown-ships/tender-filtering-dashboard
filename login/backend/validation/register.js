@@ -43,12 +43,13 @@ else if(!(Validator.equals(data.role,"staff-member")|| Validator.equals(data.rol
   if (Validator.isEmpty(data.password)) {
     errors.password = "Password field is required.";
   }
-  else if (!Validator.isLength(data.password, { min: 6, max: 30 })) {
+  else if (Validator.isEmpty(data.password2)) {
+      errors.password2 = "Confirm password field is required.";
+    }
+  else if (!Validator.isLength(data.password, { min: 6, max: 30 }) || !Validator.isLength(data.password2, { min: 6, max: 30 })) {
       errors.password = "Password must be between 6-30 characters.";
     }
-if (Validator.isEmpty(data.password2)) {
-    errors.password2 = "Confirm password field is required.";
-  }
+
 
 if (!Validator.equals(data.password, data.password2)) {
     errors.password2 = "Passwords must match.";

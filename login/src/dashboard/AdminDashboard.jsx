@@ -24,8 +24,8 @@ class AdminDashboard extends Component {
   deleteClick = id => {
     console.log(this.props);
     const input = {
-      id_d:id,
-      id_u:this.props.auth.user.id,
+      emailDelete:id,
+      email:this.props.auth.user.email,
       auth: this.props.auth.isAuthenticated
     };
     this.props.deleteUser(input, this.props.history);
@@ -43,7 +43,7 @@ class AdminDashboard extends Component {
             <td>{email}</td>
             <td className='operation'>
               <button className="btn btn-small waves-effect waves-light hoverable blue accent-3"
-                      onClick={() => this.deleteClick(_id)}>
+                      onClick={() => this.deleteClick(email)}>
                       Delete</button>
               </td>
               <td className='operation'>
