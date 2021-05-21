@@ -6,7 +6,8 @@
   "scripts": {
     "start": "nodemon ./server/server.js",
     "dev": "env-cmd ./config/dev.env nodemon",
-    "test": "jest --json --outputFile=ans.json  --env node",
+    "test": "jest --watchAll --coverage --verbose --silent --runInBand --env node",
+    "testToFile": "jest --json --outputFile=ans.json",
     "windowsTest": "tape ./__test__/*.test.js"
   },
   "author": "Stevin Sebastian",

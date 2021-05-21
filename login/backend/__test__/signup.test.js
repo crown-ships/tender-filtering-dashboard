@@ -57,7 +57,6 @@ describe('POST /api/signup Test Case: EMAIL', () => {
         done();
       });
   });
-
   it('It should create a new user: with ONLY symbols',  done => {
 
   agent
@@ -78,8 +77,6 @@ describe('POST /api/signup Test Case: EMAIL', () => {
       done();
     });
 });
-
-
   it('It should NOT create a new user: Empty Email',  done => {
     // Create a new user
     agent
@@ -100,7 +97,6 @@ describe('POST /api/signup Test Case: EMAIL', () => {
         done();
       });
   });
-
   it('It should NOT create a new user: Existing Email',  done => {
     // Create a new user
     agent
@@ -135,7 +131,6 @@ describe('POST /api/signup Test Case: EMAIL', () => {
         });
       });
   });
-
   it('It should NOT create a new user: Invalid Email (length)',  done => {
     // Create a new user
     agent
@@ -156,7 +151,6 @@ describe('POST /api/signup Test Case: EMAIL', () => {
         done();
       });
   });
-
   it('It should NOT create a new user: Invalid Email (no .)',  done => {
     // Create a new user
     agent
@@ -177,7 +171,6 @@ describe('POST /api/signup Test Case: EMAIL', () => {
         done();
       });
   });
-
   it('It should NOT create a new user: Invalid Email (no @)',  done => {
     // Create a new user
     agent
@@ -198,7 +191,6 @@ describe('POST /api/signup Test Case: EMAIL', () => {
         done();
       });
   });
-
   it('It should NOT create a new user: Invalid Email (no domain)',  done => {
     // Create a new user
     agent
@@ -219,7 +211,6 @@ describe('POST /api/signup Test Case: EMAIL', () => {
         done();
       });
   });
-
   it('It should NOT create a new user: Invalid Email (no name)',  done => {
     // Create a new user
     agent
@@ -240,7 +231,6 @@ describe('POST /api/signup Test Case: EMAIL', () => {
         done();
       });
   });
-
   it('It should NOT create a new user: Invalid Email (..com)',  done => {
     // Create a new user
     agent
@@ -261,7 +251,6 @@ describe('POST /api/signup Test Case: EMAIL', () => {
         done();
       });
   });
-
   it('It should NOT create a new user: Invalid Email (@@)',  done => {
     // Create a new user
     agent

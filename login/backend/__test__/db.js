@@ -5,9 +5,11 @@ const { MongoMemoryServer } = require('mongodb-memory-server');
 const mongoServer = new MongoMemoryServer();
 
 const opts = {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-};
+    useFindAndModify: false,
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useUnifiedTopology: true
+    };
 
 // Provide connection to a new in-memory database server.
 const connect = async () => {

@@ -6,6 +6,8 @@ const mongoose = require ('mongoose');
 const validateRegisterInput = require("../../validation/register");
 const validateLoginInput = require("../../validation/login");
 const validateEmail = require("../../validation/validateEmail");
+const validateRole =  require("../../validation/validateRole");
+const validateName =  require("../../validation/validateName");
 const validatePasswordInput = require("../../validation/validatePassword");
 const { roles } = require('../roles')
 
@@ -38,33 +40,6 @@ exports.grantAccess = function(action, resource) {
   }
 }
 }
-// exports.grantAccess = (req, res, action, resource) =>
-//  new Promise (async (resolve, reject) => {
-//   try {
-//    const id = req.query.id_u;
-//    //res.status(400).json({id: id});
-//    const user = await User.findById(id);
-//    const role = user.role;
-//
-//    const permission = roles.can(role)[action](resource);
-//    //res.status(400).json({message:permission.granted});
-//    if (permission.granted == false) {
-//      reject({message: "You don't have enough permission to perform this action"});
-//     }
-//     else {
-//     if (role == "admin"){
-//       if(req.body.role == "super-admin" || req.body.role == "admin"){
-//
-//          reject({message: "Action forbidden: Not allowed to change this user."});
-//       }
-//     }
-//     resolve({message:"Access Granted."})
-//   }
-//
-//   } catch (error) {
-//     reject({message:"Could not grant access",error});
-//   }
-// });
 
 exports.allowIfLoggedin = async (req, res, next) => {
  try {
@@ -87,20 +62,6 @@ exports.allowIfLoggedin = async (req, res, next) => {
    next(error);
   }
 }
-//
-// exports.allowIfLoggedin = (req, res) =>
-// new Promise (async (resolve, reject) => {
-//  try {
-//
-//   const user = req.query.auth;
-//   reject({user:user});
-//   if (!user) reject({ message: "You need to be logged in to access this route"})
-//
-//   resolve({message: "validated login"});
-//   } catch (error) {
-//    reject({message:"Could not Authenticate",error});
-//   }
-// });
 
 async function hashPassword(password) {
  return await bcrypt.hash(password, 10);
@@ -140,85 +101,7 @@ catch(error) {
    next(error)
  }
 }
-// exports.signup =  (req, res) =>
-// new Promise (async (resolve, reject) => {
-//  try {
-//    // Validation code here
-//    const { errors, isValid } = validateRegisterInput(req.body);
-//    // Check validation
-//    if (!isValid) {
-//      reject({message: "Invalid information", error});
-//    }
-//
-//   const hashedPassword = await hashPassword(req.body.password);
-//   const email = req.body.email;
-//   const user = await User.findOne({ email });
-//   if (user) reject({message: "User already Exists"});
-//
-//   const signedupUser = new User({
-//    name: req.body.name,
-//    email: req.body.email,
-//    password: hashedPassword,
-//    password2: hashedPassword,
-//    role: req.body.role || "staff-member",
-//    createdById: req.body.createdBy
-//   });
-//
-//   await signedupUser.save()
-//   resolve({user: signedupUser});
-// }
-// catch(error) {
-//    next(error)
-//  }
-// });
 
-// exports.login = (req, res) =>
-// new Promise (async (resolve, reject) => {
-//   try {
-//     //validation code here
-//     const { errors, isValid } = validateLoginInput(req.body);
-//     // Check validation
-//     if (!isValid) {
-//        reject({message: "Invalid information", error});
-//     }
-//
-//     const email = req.body.email;
-//     const password = req.body.password;
-//
-//     const user = await User.findOne({ email });
-//     if (!user)  reject({message: "User not found"});
-//
-//     const validPassword = await validatePassword(password, user.password);
-//     if (!validPassword)  reject({message: "Inorrect Password"});
-//
-//     const payload = {
-//           id: user._id,
-//           name: user.name,
-//           role: user.role,
-//           email: user.email,
-//           tableData: {}
-//     };
-//
-//     const token = jwt.sign(
-//           payload,
-//           process.env.JWT_SECRET,
-//           {
-//             expiresIn: 31556926 // 1 year in seconds
-//           }
-//         );
-//
-//     resolve({
-//       success: true,
-//       token: "Bearer " + token
-//     });
-//   }
-//   catch(error) {
-//     reject({
-//     message: 'Could not login',
-//     error,
-//   });
-//   }
-// });
 exports.login = async(req, res, next) => {
   try {
     //validation code here
@@ -306,9 +189,28 @@ exports.updateUser = async (req, res, next) => {
     }
 
    const userBody = req.body;
+
    if (userBody.email)
    {
      const { errors, isValid } = validateEmail(userBody);
+     // Check validation
+     if (!isValid) {
+       return res.status(400).json(errors);
+     }
+   }
+
+   if (userBody.role)
+   {
+     const { errors, isValid } = validateRole(userBody);
+     // Check validation
+     if (!isValid) {
+       return res.status(400).json(errors);
+     }
+   }
+
+   if (userBody.name)
+   {
+     const { errors, isValid } = validateName(userBody);
      // Check validation
      if (!isValid) {
        return res.status(400).json(errors);
@@ -323,7 +225,7 @@ exports.updateUser = async (req, res, next) => {
        return res.status(400).json(errors);
      }
      userBody.password = await hashPassword(userBody.password);
-     userBody.password2 = await hashPassword(userBody.password);
+     userBody.password2 = userBody.password;
    }
 
    await User.findByIdAndUpdate(user_upd[0]._id, userBody);
@@ -369,16 +271,3 @@ exports.deleteUser = async (req, res, next) => {
   next(error)
  }
 }
-// exports.deleteUser = (req, res) =>
-//   new Promise(async (resolve, reject) => {
-//     try {
-//     const id = req.query.id_d;
-//
-//     await User.findByIdAndDelete(id);
-//
-//     resolve({message: 'User has been deleted'})
-//     }
-//     catch (error) {
-//       reject({message: "could not delete",error})
-//     }
-//   });

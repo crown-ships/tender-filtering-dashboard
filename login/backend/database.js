@@ -13,10 +13,10 @@ const database = () => {
   // connect to the database
 
   mongoose.connect(process.env.DATABASE,{
+      useFindAndModify: false,
       useNewUrlParser: true,
       useCreateIndex: true,
-      useUnifiedTopology: true,
-      useFindAndModify: false
+      useUnifiedTopology: true
       }, () =>console.log("Database Connected"));
   // the rest in this file is just different event handlers
   // for the mongodb connection

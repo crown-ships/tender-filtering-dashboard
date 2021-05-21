@@ -2,13 +2,13 @@
    "numFailedTestSuites":0,
    "numFailedTests":0,
    "numPassedTestSuites":6,
-   "numPassedTests":43,
+   "numPassedTests":62,
    "numPendingTestSuites":0,
    "numPendingTests":0,
    "numRuntimeErrorTestSuites":0,
    "numTodoTests":0,
    "numTotalTestSuites":6,
-   "numTotalTests":43,
+   "numTotalTests":62,
    "openHandles":[
 
    ],
@@ -32,98 +32,88 @@
       "unmatched":0,
       "updated":0
    },
-   "startTime":1621538450450,
+   "startTime":1621599829170,
    "success":true,
    "testResults":[
       {
          "assertionResults":[
             {
                "ancestorTitles":[
-                  "POST /api/users Ideal Case"
+                  "POST /api/login Ideal Case"
                ],
                "failureMessages":[
 
                ],
-               "fullName":"POST /api/users Ideal Case It should update one user",
+               "fullName":"POST /api/login Ideal Case It should login the user",
                "location":null,
                "status":"passed",
-               "title":"It should update one user"
+               "title":"It should login the user"
+            },
+            {
+               "ancestorTitles":[
+                  "POST /api/login Test Case: EMAIL"
+               ],
+               "failureMessages":[
+
+               ],
+               "fullName":"POST /api/login Test Case: EMAIL It should NOT login the user: Email (invalid)",
+               "location":null,
+               "status":"passed",
+               "title":"It should NOT login the user: Email (invalid)"
+            },
+            {
+               "ancestorTitles":[
+                  "POST /api/login Test Case: EMAIL"
+               ],
+               "failureMessages":[
+
+               ],
+               "fullName":"POST /api/login Test Case: EMAIL It should NOT login the user: Email (empty)",
+               "location":null,
+               "status":"passed",
+               "title":"It should NOT login the user: Email (empty)"
+            },
+            {
+               "ancestorTitles":[
+                  "POST /api/login Test Case: EMAIL"
+               ],
+               "failureMessages":[
+
+               ],
+               "fullName":"POST /api/login Test Case: EMAIL It should NOT login the user: Email (Not exist)",
+               "location":null,
+               "status":"passed",
+               "title":"It should NOT login the user: Email (Not exist)"
+            },
+            {
+               "ancestorTitles":[
+                  "POST /api/login Test Case: PASSWORD"
+               ],
+               "failureMessages":[
+
+               ],
+               "fullName":"POST /api/login Test Case: PASSWORD It should NOT login the user: Password (Empty)",
+               "location":null,
+               "status":"passed",
+               "title":"It should NOT login the user: Password (Empty)"
+            },
+            {
+               "ancestorTitles":[
+                  "POST /api/login Test Case: PASSWORD"
+               ],
+               "failureMessages":[
+
+               ],
+               "fullName":"POST /api/login Test Case: PASSWORD It should NOT login the user: Password (Incorrect)",
+               "location":null,
+               "status":"passed",
+               "title":"It should NOT login the user: Password (Incorrect)"
             }
          ],
-         "endTime":1621538460986,
+         "endTime":1621599838430,
          "message":"",
-         "name":"C:\\Users\\Stevin Sebastian\\Documents\\GitHub\\user-login-signup\\login\\backend\\__test__\\update.test.js",
-         "startTime":1621538451906,
-         "status":"passed",
-         "summary":""
-      },
-      {
-         "assertionResults":[
-            {
-               "ancestorTitles":[
-                  "GET /api/user Ideal Case"
-               ],
-               "failureMessages":[
-
-               ],
-               "fullName":"GET /api/user Ideal Case It should return one user",
-               "location":null,
-               "status":"passed",
-               "title":"It should return one user"
-            },
-            {
-               "ancestorTitles":[
-                  "GET /api/user Test Case: AUTH"
-               ],
-               "failureMessages":[
-
-               ],
-               "fullName":"GET /api/user Test Case: AUTH It should NOT return one user info: (Not Logged In)",
-               "location":null,
-               "status":"passed",
-               "title":"It should NOT return one user info: (Not Logged In)"
-            },
-            {
-               "ancestorTitles":[
-                  "GET /api/user Test Case: ACCESS CONTROL"
-               ],
-               "failureMessages":[
-
-               ],
-               "fullName":"GET /api/user Test Case: ACCESS CONTROL It should return one user info: (Permission Check: STAFF_MEMBER)",
-               "location":null,
-               "status":"passed",
-               "title":"It should return one user info: (Permission Check: STAFF_MEMBER)"
-            },
-            {
-               "ancestorTitles":[
-                  "GET /api/user Test Case: ACCESS CONTROL"
-               ],
-               "failureMessages":[
-
-               ],
-               "fullName":"GET /api/user Test Case: ACCESS CONTROL It should return one user info: (Permission Check: SUPER-ADMIN)",
-               "location":null,
-               "status":"passed",
-               "title":"It should return one user info: (Permission Check: SUPER-ADMIN)"
-            },
-            {
-               "ancestorTitles":[
-                  "GET /api/user Test Case: ACCESS CONTROL"
-               ],
-               "failureMessages":[
-
-               ],
-               "fullName":"GET /api/user Test Case: ACCESS CONTROL It should NOT return one user info: (Permission Check: INVALID USER)",
-               "location":null,
-               "status":"passed",
-               "title":"It should NOT return one user info: (Permission Check: INVALID USER)"
-            }
-         ],
-         "endTime":1621538461925,
-         "message":"",
-         "name":"C:\\Users\\Stevin Sebastian\\Documents\\GitHub\\user-login-signup\\login\\backend\\__test__\\get.test.js",
-         "startTime":1621538451934,
+         "name":"C:\\Users\\Stevin Sebastian\\Documents\\GitHub\\user-login-signup\\login\\backend\\__test__\\login.test.js",
+         "startTime":1621599830255,
          "status":"passed",
          "summary":""
       },
@@ -202,10 +192,10 @@
                "title":"It should NOT delete a user: (ADMIN deleted SUPERADMIN)"
             }
          ],
-         "endTime":1621538462217,
+         "endTime":1621599839046,
          "message":"",
          "name":"C:\\Users\\Stevin Sebastian\\Documents\\GitHub\\user-login-signup\\login\\backend\\__test__\\delete.test.js",
-         "startTime":1621538452023,
+         "startTime":1621599830223,
          "status":"passed",
          "summary":""
       },
@@ -213,81 +203,201 @@
          "assertionResults":[
             {
                "ancestorTitles":[
-                  "POST /api/login Ideal Case"
+                  "POST /api/user Ideal Case"
                ],
                "failureMessages":[
 
                ],
-               "fullName":"POST /api/login Ideal Case It should login the user",
+               "fullName":"POST /api/user Ideal Case It should update one user",
                "location":null,
                "status":"passed",
-               "title":"It should login the user"
+               "title":"It should update one user"
             },
             {
                "ancestorTitles":[
-                  "POST /api/login Test Case: EMAIL"
+                  "POST /api/user Test Case: EMAIL"
                ],
                "failureMessages":[
 
                ],
-               "fullName":"POST /api/login Test Case: EMAIL It should NOT login the user: Email (invalid)",
+               "fullName":"POST /api/user Test Case: EMAIL It should NOT update one user: Email (Invalid)",
                "location":null,
                "status":"passed",
-               "title":"It should NOT login the user: Email (invalid)"
+               "title":"It should NOT update one user: Email (Invalid)"
             },
             {
                "ancestorTitles":[
-                  "POST /api/login Test Case: EMAIL"
+                  "POST /api/user Test Case: ROLE"
                ],
                "failureMessages":[
 
                ],
-               "fullName":"POST /api/login Test Case: EMAIL It should NOT login the user: Email (empty)",
+               "fullName":"POST /api/user Test Case: ROLE It should NOT update one user: Role (Invalid)",
                "location":null,
                "status":"passed",
-               "title":"It should NOT login the user: Email (empty)"
+               "title":"It should NOT update one user: Role (Invalid)"
             },
             {
                "ancestorTitles":[
-                  "POST /api/login Test Case: EMAIL"
+                  "POST /api/user Test Case: PASSWORD"
                ],
                "failureMessages":[
 
                ],
-               "fullName":"POST /api/login Test Case: EMAIL It should NOT login the user: Email (Not exist)",
+               "fullName":"POST /api/user Test Case: PASSWORD It should NOT update one user: Password (Length < 6)",
                "location":null,
                "status":"passed",
-               "title":"It should NOT login the user: Email (Not exist)"
+               "title":"It should NOT update one user: Password (Length < 6)"
             },
             {
                "ancestorTitles":[
-                  "POST /api/login Test Case: PASSWORD"
+                  "POST /api/user Test Case: PASSWORD"
                ],
                "failureMessages":[
 
                ],
-               "fullName":"POST /api/login Test Case: PASSWORD It should NOT login the user: Password (Empty)",
+               "fullName":"POST /api/user Test Case: PASSWORD It should NOT update one user: Password (Length >30)",
                "location":null,
                "status":"passed",
-               "title":"It should NOT login the user: Password (Empty)"
+               "title":"It should NOT update one user: Password (Length >30)"
             },
             {
                "ancestorTitles":[
-                  "POST /api/login Test Case: PASSWORD"
+                  "POST /api/user Test Case: PASSWORD"
                ],
                "failureMessages":[
 
                ],
-               "fullName":"POST /api/login Test Case: PASSWORD It should NOT login the user: Password (Incorrect)",
+               "fullName":"POST /api/user Test Case: PASSWORD It should NOT update one user: Password (Match)",
                "location":null,
                "status":"passed",
-               "title":"It should NOT login the user: Password (Incorrect)"
+               "title":"It should NOT update one user: Password (Match)"
+            },
+            {
+               "ancestorTitles":[
+                  "POST /api/user Test Case: PASSWORD"
+               ],
+               "failureMessages":[
+
+               ],
+               "fullName":"POST /api/user Test Case: PASSWORD It should update one user: Password (Correct input)",
+               "location":null,
+               "status":"passed",
+               "title":"It should update one user: Password (Correct input)"
+            },
+            {
+               "ancestorTitles":[
+                  "POST /api/user Test Case: NAME"
+               ],
+               "failureMessages":[
+
+               ],
+               "fullName":"POST /api/user Test Case: NAME It should NOT update one user: Name (Numbers)",
+               "location":null,
+               "status":"passed",
+               "title":"It should NOT update one user: Name (Numbers)"
+            },
+            {
+               "ancestorTitles":[
+                  "POST /api/user Test Case: NAME"
+               ],
+               "failureMessages":[
+
+               ],
+               "fullName":"POST /api/user Test Case: NAME It should NOT update one user: Name (Special Char)",
+               "location":null,
+               "status":"passed",
+               "title":"It should NOT update one user: Name (Special Char)"
+            },
+            {
+               "ancestorTitles":[
+                  "POST /api/user Test Case: NAME"
+               ],
+               "failureMessages":[
+
+               ],
+               "fullName":"POST /api/user Test Case: NAME It should NOT update one user: Name (Special Char)",
+               "location":null,
+               "status":"passed",
+               "title":"It should NOT update one user: Name (Special Char)"
+            },
+            {
+               "ancestorTitles":[
+                  "POST /api/user Test Case: NAME"
+               ],
+               "failureMessages":[
+
+               ],
+               "fullName":"POST /api/user Test Case: NAME It should NOT update one user: Name (Special Char)",
+               "location":null,
+               "status":"passed",
+               "title":"It should NOT update one user: Name (Special Char)"
+            },
+            {
+               "ancestorTitles":[
+                  "POST /api/user Test Case: ACCESS CONTROL"
+               ],
+               "failureMessages":[
+
+               ],
+               "fullName":"POST /api/user Test Case: ACCESS CONTROL It should NOT update a user: (Permission Check: STAFF_MEMBER)",
+               "location":null,
+               "status":"passed",
+               "title":"It should NOT update a user: (Permission Check: STAFF_MEMBER)"
+            },
+            {
+               "ancestorTitles":[
+                  "POST /api/user Test Case: ACCESS CONTROL"
+               ],
+               "failureMessages":[
+
+               ],
+               "fullName":"POST /api/user Test Case: ACCESS CONTROL It should NOT update a user: (Permission Check: SUPERVISOR)",
+               "location":null,
+               "status":"passed",
+               "title":"It should NOT update a user: (Permission Check: SUPERVISOR)"
+            },
+            {
+               "ancestorTitles":[
+                  "POST /api/user Test Case: ACCESS CONTROL"
+               ],
+               "failureMessages":[
+
+               ],
+               "fullName":"POST /api/user Test Case: ACCESS CONTROL It should NOT update a user: (Permission Check: INVALID USER)",
+               "location":null,
+               "status":"passed",
+               "title":"It should NOT update a user: (Permission Check: INVALID USER)"
+            },
+            {
+               "ancestorTitles":[
+                  "POST /api/user Test Case: ACCESS CONTROL"
+               ],
+               "failureMessages":[
+
+               ],
+               "fullName":"POST /api/user Test Case: ACCESS CONTROL It should NOT update a user: (ADMIN updates SUPERADMIN)",
+               "location":null,
+               "status":"passed",
+               "title":"It should NOT update a user: (ADMIN updates SUPERADMIN)"
+            },
+            {
+               "ancestorTitles":[
+                  "POST /api/user Test Case: AUTH"
+               ],
+               "failureMessages":[
+
+               ],
+               "fullName":"POST /api/user Test Case: AUTH It should NOT update a user: (Not Logged In)",
+               "location":null,
+               "status":"passed",
+               "title":"It should NOT update a user: (Not Logged In)"
             }
          ],
-         "endTime":1621538464643,
+         "endTime":1621599841749,
          "message":"",
-         "name":"C:\\Users\\Stevin Sebastian\\Documents\\GitHub\\user-login-signup\\login\\backend\\__test__\\login.test.js",
-         "startTime":1621538461046,
+         "name":"C:\\Users\\Stevin Sebastian\\Documents\\GitHub\\user-login-signup\\login\\backend\\__test__\\update.test.js",
+         "startTime":1621599830133,
          "status":"passed",
          "summary":""
       },
@@ -295,21 +405,69 @@
          "assertionResults":[
             {
                "ancestorTitles":[
-                  "GET /api/users Ideal Case"
+                  "GET /api/user Ideal Case"
                ],
                "failureMessages":[
 
                ],
-               "fullName":"GET /api/users Ideal Case It should return all users",
+               "fullName":"GET /api/user Ideal Case It should return one user",
                "location":null,
                "status":"passed",
-               "title":"It should return all users"
+               "title":"It should return one user"
+            },
+            {
+               "ancestorTitles":[
+                  "GET /api/user Test Case: AUTH"
+               ],
+               "failureMessages":[
+
+               ],
+               "fullName":"GET /api/user Test Case: AUTH It should NOT return one user info: (Not Logged In)",
+               "location":null,
+               "status":"passed",
+               "title":"It should NOT return one user info: (Not Logged In)"
+            },
+            {
+               "ancestorTitles":[
+                  "GET /api/user Test Case: ACCESS CONTROL"
+               ],
+               "failureMessages":[
+
+               ],
+               "fullName":"GET /api/user Test Case: ACCESS CONTROL It should return one user info: (Permission Check: STAFF_MEMBER)",
+               "location":null,
+               "status":"passed",
+               "title":"It should return one user info: (Permission Check: STAFF_MEMBER)"
+            },
+            {
+               "ancestorTitles":[
+                  "GET /api/user Test Case: ACCESS CONTROL"
+               ],
+               "failureMessages":[
+
+               ],
+               "fullName":"GET /api/user Test Case: ACCESS CONTROL It should return one user info: (Permission Check: SUPER-ADMIN)",
+               "location":null,
+               "status":"passed",
+               "title":"It should return one user info: (Permission Check: SUPER-ADMIN)"
+            },
+            {
+               "ancestorTitles":[
+                  "GET /api/user Test Case: ACCESS CONTROL"
+               ],
+               "failureMessages":[
+
+               ],
+               "fullName":"GET /api/user Test Case: ACCESS CONTROL It should NOT return one user info: (Permission Check: INVALID USER)",
+               "location":null,
+               "status":"passed",
+               "title":"It should NOT return one user info: (Permission Check: INVALID USER)"
             }
          ],
-         "endTime":1621538464841,
+         "endTime":1621599842337,
          "message":"",
-         "name":"C:\\Users\\Stevin Sebastian\\Documents\\GitHub\\user-login-signup\\login\\backend\\__test__\\getAll.test.js",
-         "startTime":1621538462267,
+         "name":"C:\\Users\\Stevin Sebastian\\Documents\\GitHub\\user-login-signup\\login\\backend\\__test__\\get.test.js",
+         "startTime":1621599838533,
          "status":"passed",
          "summary":""
       },
@@ -604,10 +762,80 @@
                "title":"It should NOT create a new user: Role (Invalid)"
             }
          ],
-         "endTime":1621538465458,
+         "endTime":1621599842492,
          "message":"",
          "name":"C:\\Users\\Stevin Sebastian\\Documents\\GitHub\\user-login-signup\\login\\backend\\__test__\\signup.test.js",
-         "startTime":1621538461972,
+         "startTime":1621599839093,
+         "status":"passed",
+         "summary":""
+      },
+      {
+         "assertionResults":[
+            {
+               "ancestorTitles":[
+                  "GET /api/users Ideal Case"
+               ],
+               "failureMessages":[
+
+               ],
+               "fullName":"GET /api/users Ideal Case It should return all users",
+               "location":null,
+               "status":"passed",
+               "title":"It should return all users"
+            },
+            {
+               "ancestorTitles":[
+                  "GET /api/users Test Case: ACCESS CONTROL"
+               ],
+               "failureMessages":[
+
+               ],
+               "fullName":"GET /api/users Test Case: ACCESS CONTROL It should NOT get all users: (Permission Check: STAFF_MEMBER)",
+               "location":null,
+               "status":"passed",
+               "title":"It should NOT get all users: (Permission Check: STAFF_MEMBER)"
+            },
+            {
+               "ancestorTitles":[
+                  "GET /api/users Test Case: ACCESS CONTROL"
+               ],
+               "failureMessages":[
+
+               ],
+               "fullName":"GET /api/users Test Case: ACCESS CONTROL It should NOT get all users: (Permission Check: SUPERVISOR)",
+               "location":null,
+               "status":"passed",
+               "title":"It should NOT get all users: (Permission Check: SUPERVISOR)"
+            },
+            {
+               "ancestorTitles":[
+                  "GET /api/users Test Case: ACCESS CONTROL"
+               ],
+               "failureMessages":[
+
+               ],
+               "fullName":"GET /api/users Test Case: ACCESS CONTROL It should NOT get all users: (Permission Check: INVALID USER)",
+               "location":null,
+               "status":"passed",
+               "title":"It should NOT get all users: (Permission Check: INVALID USER)"
+            },
+            {
+               "ancestorTitles":[
+                  "GET /api/users Test Case: AUTH"
+               ],
+               "failureMessages":[
+
+               ],
+               "fullName":"GET /api/users Test Case: AUTH It should NOT get all users: (Not Logged In)",
+               "location":null,
+               "status":"passed",
+               "title":"It should NOT get all users: (Not Logged In)"
+            }
+         ],
+         "endTime":1621599844054,
+         "message":"",
+         "name":"C:\\Users\\Stevin Sebastian\\Documents\\GitHub\\user-login-signup\\login\\backend\\__test__\\getAll.test.js",
+         "startTime":1621599841790,
          "status":"passed",
          "summary":""
       }

@@ -8,11 +8,12 @@ ac.grant("staff-member")
 
 ac.grant("supervisor")
  .extend("staff-member")
- .readAny("profile")
+
 
 ac.grant("admin")
  .extend("staff-member")
  .extend("supervisor")
+ .readAny("profile")
  .updateAny("profile")
  .deleteAny("profile")
  .create("profile")

@@ -144,7 +144,6 @@ describe('DELETE /api/users Test Case: ACCESS CONTROL', () => {
           });
       });
   });
-
   it('It should NOT delete a user: (Permission Check: SUPERVISOR)',  done => {
     // Create a new user
     agent
@@ -187,7 +186,6 @@ describe('DELETE /api/users Test Case: ACCESS CONTROL', () => {
           });
       });
   });
-
   it('It should NOT delete a user: (Permission Check: INVALID USER)',  done => {
     // Create a new user
     agent
@@ -230,7 +228,6 @@ describe('DELETE /api/users Test Case: ACCESS CONTROL', () => {
           });
       });
   });
-
   it('It should NOT delete a user: (ADMIN deleted SUPERADMIN)',  done => {
     // Create a new user
     agent
