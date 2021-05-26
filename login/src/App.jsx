@@ -19,7 +19,7 @@ import UpdateEmail from "./dashboard/functions/update/UpdateEmail";
 import UpdateName from "./dashboard/functions/update/UpdateName";
 import UpdatePassword from "./dashboard/functions/update/UpdatePassword";
 // Check for token to keep user logged in
-
+import Dashboard from "./components/dashboard";
 if (localStorage.jwtToken) {
   // Set auth token header auth
   const token = localStorage.jwtToken;
@@ -44,11 +44,10 @@ class App extends Component {
       <Provider store = {store}>
         <Router>
           <div className="App">
-            <Route exact path="/" component={Landing} />
             <Route exact path="/login" component={Login} />
             <Switch>
               <PrivateRoute exact path="/register" component={Register} />
-              <PrivateRoute exact path="/admin-dashboard" component={AdminDashboard} />
+              <PrivateRoute exact path="/admin-dashboard" component={Dashboard} />
               <PrivateRoute exact path="/basic-dashboard" component={BasicDashboard} />
               <PrivateRoute exact path="/delete" component={Delete} />
               <PrivateRoute exact path="/UpdateName" component={UpdateName} />

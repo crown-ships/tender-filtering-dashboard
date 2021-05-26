@@ -115,10 +115,16 @@ exports.login = async(req, res, next) => {
     const password = req.body.password;
 
     const user = await User.findOne({ email });
-    if (!user) return res.status(400).json('Email does not exist.');
+    if (!user) {
+      errors.email = 'Email does not exist.';
+      return res.status(400).json(errors);
+    }
 
     const validPassword = await validatePassword(password, user.password);
-    if (!validPassword) return res.status(400).json('Password is incorrect.');
+    if (!validPassword) {
+      errors.password = 'Password is incorrect.';
+      return res.status(400).json(errors);
+    }
 
     const payload = {
           id: user._id,
@@ -260,12 +266,14 @@ exports.deleteUser = async (req, res, next) => {
       });
      }
    }
+  else{
+    await User.findByIdAndDelete(user_delete[0]._id);
+    res.status(200).json({
+     data: null,
+     message: 'User has been deleted'
+    });
+  }
 
-  await User.findByIdAndDelete(user_delete[0]._id);
-  res.status(200).json({
-   data: null,
-   message: 'User has been deleted'
-  });
  }
  catch (error) {
   next(error)
