@@ -165,6 +165,7 @@ class Register extends Component {
       role: this.state.role,
       userRole: this.props.auth.user.role,
       createdBy: this.props.auth.user.id,
+      createdByName: this.props.auth.user.name,
       authentication: this.props.isAuthenticated
     };
 

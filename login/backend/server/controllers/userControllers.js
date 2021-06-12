@@ -12,12 +12,13 @@ const validatePasswordInput = require("../../validation/validatePassword");
 const { roles } = require('../roles')
 
 exports.grantAccess = function(action, resource) {
+
  return async (req, res, next) => {
   try {
    email = req.query.email;
-  // res.status(400).json(email);
+   //res.status(200).json(email);
   const user = await User.findOne({email});
-  if(user) {
+  if(user ) {
     const role = user.role;
     //res.status(200).json({id: role});
     const permission = roles.can(role)[action](resource);
@@ -91,7 +92,8 @@ exports.signup = async (req, res, next) => {
    password: hashedPassword,
    password2: hashedPassword,
    role: req.body.role || "staff-member",
-   createdById: req.body.createdBy
+   createdById: req.body.createdBy,
+   createdByName: req.body.createdByName
   });
 
   await signedupUser.save()
@@ -239,7 +241,7 @@ exports.updateUser = async (req, res, next) => {
 
    res.status(200).json({
     data: user,
-    message: 'User has been updated'
+    message: 'User updated successfully.'
    });
   }
   catch (error) {
@@ -259,14 +261,13 @@ exports.deleteUser = async (req, res, next) => {
   const userRole = user_req[0].role;
   const deleteRole = user_delete[0].role;
 
-  if (userRole == "admin") {
-    if(deleteRole == "super-admin" || deleteRole == "admin") {
-      res.status(401).json({
-        error: "Action forbidden: Not allowed to change this user."
-      });
-     }
-   }
+  if (userRole == "admin" && (deleteRole == "super-admin" || deleteRole == "admin")) {
+    res.status(401).json({
+      error: "Action forbidden: Not allowed to change this user."
+    });
+  }
   else{
+
     await User.findByIdAndDelete(user_delete[0]._id);
     res.status(200).json({
      data: null,

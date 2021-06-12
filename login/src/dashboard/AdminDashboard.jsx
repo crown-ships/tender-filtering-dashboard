@@ -2,7 +2,7 @@ import React, { Component, useState, useEffect } from "react";
 import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { logoutUser } from "../actions/authActions";
+import { logoutUser, registerUser } from "../actions/authActions";
 import { getAllUsers, deleteUser } from "../actions/dashboardActions";
 import TableScrollbar from 'react-table-scrollbar';
 
@@ -91,6 +91,7 @@ class AdminDashboard extends Component {
 
 
  render() {
+   console.log(this.props);
    const { user } = this.props.auth;
    return (
      <div style={{ height: "100vh" }} className="container valign-wrapper">
@@ -173,5 +174,5 @@ const mapStateToProps = state => ({
 });
 export default connect(
   mapStateToProps,
-  { logoutUser, getAllUsers, deleteUser }
+  { logoutUser, getAllUsers, deleteUser, registerUser }
 )(withRouter(AdminDashboard));

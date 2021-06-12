@@ -7,6 +7,7 @@ ac.grant("staff-member")
  .updateOwn("profile")
 
 ac.grant("supervisor")
+  .readAny("profile")
  .extend("staff-member")
 
 

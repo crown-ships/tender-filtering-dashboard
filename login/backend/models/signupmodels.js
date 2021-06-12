@@ -29,11 +29,10 @@ const signupTemplate = new mongoose.Schema({
   },
   createdById: {
     type: String
+  },
+  createdByName: {
+    type: String
   }
-  // },
-  // accessToken: {
-  //   type: String
-  // }
 });
 
 module.exports = mongoose.model("users", signupTemplate);

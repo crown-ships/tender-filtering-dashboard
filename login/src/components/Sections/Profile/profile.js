@@ -1,12 +1,17 @@
-import React from 'react';
+import React  from 'react';
 import clsx from 'clsx';
+import { Ldink, withRouter } from "react-router-dom";
+
+import { connect } from "react-redux";
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
 import Box from '@material-ui/core/Box';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
+import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
+import PropTypes from "prop-types";
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
@@ -18,8 +23,11 @@ import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
- import { mainListItems } from './listitem';
-import Table from './table';
+import { mainListItems, secondaryListItems } from '../listitem';
+import ExitToApp from '@material-ui/icons/ExitToApp'
+import { logoutUser, registerUser } from "../../../actions/authActions";
+import { getAllUsers, deleteUser, updateUser, getUser } from "../../../actions/dashboardActions";
+import UserProfile from "./UserProfile"
 // import Deposits from './Deposits';
 // import Orders from './Orders';
 
@@ -115,20 +123,52 @@ const useStyles = makeStyles((theme) => ({
   fixedHeight: {
     height: 240,
   },
+  btnstyle: {
+    margin:'8px 0',
+    backgroundColor: '#666bff'}
 }));
+function onLogoutClick(e) {
+  e.preventDefault();
+  this.props.logoutUser();
+}
+const getData = (prop) => {
+  return prop.getAllUsers({email:prop.auth.user.email, auth:prop.auth.isAuthenticated}, prop.history);
+}
 
-export default function Dashboard(props) {
+
+
+const Profile =  (props) => {
+
+  var itemList = "";
+  if (props.auth.user.role === "staff-member") {
+    itemList = secondaryListItems;
+  }
+  else {
+    itemList = mainListItems;
+  }
+
+  console.log(props);
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
   const handleDrawerOpen = () => {
     setOpen(true);
   };
+  const [data, setData] = React.useState(true);
+  React.useEffect(async () => {
+    const d = await getData(props);
+    setData(d.data);
+  },[]);
+
+  function onLogoutClick(e) {
+    e.preventDefault();
+    props.logoutUser();
+  }
   const handleDrawerClose = () => {
     setOpen(false);
   };
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
-
   return (
+
     <div className={classes.root}>
       <CssBaseline />
       <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
@@ -143,13 +183,11 @@ export default function Dashboard(props) {
             <MenuIcon />
           </IconButton>
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-            Dashboard
+            Profile
           </Typography>
-          <IconButton color="inherit">
-            <Badge badgeContent={4} color="secondary">
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
+          <Button color="inherit" className={classes.btnstyle} onClick={onLogoutClick}>
+            Logout
+          </Button>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -165,8 +203,7 @@ export default function Dashboard(props) {
         </IconButton>
       </div>
       <Divider />
-      <List>{mainListItems}</List>
-
+      <List>{itemList}</List>
       </Drawer>
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
@@ -174,7 +211,7 @@ export default function Dashboard(props) {
             {/* Recent Orders */}
             <Grid item xs={12}>
               <Paper className={classes.paper}>
-                <Table />
+                <UserProfile {...props}/>
               </Paper>
             </Grid>
 
@@ -188,29 +225,14 @@ export default function Dashboard(props) {
   );
 }
 
-
-// <Container maxWidth="lg" className={classes.container}>
-//   <Grid container spacing={3}>
-//     {/* Chart */}
-//     <Grid item xs={12} md={8} lg={9}>
-//       <Paper className={fixedHeightPaper}>
-//         <Chart />
-//       </Paper>
-//     </Grid>
-//     {/* Recent Deposits */}
-//     <Grid item xs={12} md={4} lg={3}>
-//       <Paper className={fixedHeightPaper}>
-//         <Deposits />
-//       </Paper>
-//     </Grid>
-//     {/* Recent Orders */}
-//     <Grid item xs={12}>
-//       <Paper className={classes.paper}>
-//         <Orders />
-//       </Paper>
-//     </Grid>
-//   </Grid>
-//   <Box pt={4}>
-//     <Copyright />
-//   </Box>
-// </Container>
+Profile.propTypes = {
+  logoutUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired
+};
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+export default connect(
+  mapStateToProps,
+  { logoutUser, getAllUsers, deleteUser, updateUser, registerUser, getUser }
+)(withRouter(Profile));

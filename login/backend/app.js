@@ -15,14 +15,6 @@ dotenv.config({
  path: path.join(__dirname, ".env")
 });
 
-
-
-// mongoose.connect(process.env.DATABASE_ACCESS,{
-//     useNewUrlParser: true,
-//     useCreateIndex: true,
-//     useUnifiedTopology: true,
-//     useFindAndModify: false
-//     }, () =>console.log("Database Connected"));
 if (process.env.NODE_ENV !== 'test') {
   database();
 }

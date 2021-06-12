@@ -13,7 +13,7 @@ export const registerUser = (userData, history) => dispatch => {
     .post("http://localhost:4000/api/signup", userData)
     .then(res => {
       console.log(res.data);
-      history.push("/admin-dashboard"
+      history.push("/employees"
 )}) // re-direct to login on successful register
     .catch(err =>
       dispatch({
