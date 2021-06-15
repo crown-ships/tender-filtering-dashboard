@@ -15,11 +15,11 @@ import SettingsIcon from '@material-ui/icons/Settings';
 
 export const mainListItems = (
   <div>
-    <ListItem button component={Link} to="/dashboard">
+    <ListItem button component={Link} to="/search">
       <ListItemIcon>
         <DashboardIcon />
       </ListItemIcon>
-      <ListItemText primary="Dashboard" />
+      <ListItemText primary="Search" />
     </ListItem>
     <ListItem button component={Link} to="/employees">
       <ListItemIcon>
@@ -45,11 +45,11 @@ export const mainListItems = (
 
 export const secondaryListItems = (
   <div>
-  <ListItem button component={Link} to="/dashboard">
+  <ListItem button component={Link} to="/search">
     <ListItemIcon>
       <DashboardIcon />
     </ListItemIcon>
-    <ListItemText primary="Dashboard" />
+    <ListItemText primary="Search" />
   </ListItem>
   <ListItem button component={Link} to="/profile">
     <ListItemIcon>

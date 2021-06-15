@@ -1,6 +1,6 @@
 import React  from 'react';
 import clsx from 'clsx';
-import { Ldink, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 
 import { connect } from "react-redux";
 import { makeStyles } from '@material-ui/core/styles';
@@ -15,6 +15,8 @@ import PropTypes from "prop-types";
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 import Badge from '@material-ui/core/Badge';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
@@ -25,11 +27,43 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import ExitToApp from '@material-ui/icons/ExitToApp';
 import { mainListItems, secondaryListItems } from '../listitem';
+import { logoutUser } from "../../../actions/authActions";
+import { registerTender, getTenders, searchTenders} from "../../../actions/tenderActions";
+import TenderTable from "./Tender_Table";
+import SearchForm from "./SearchForm"
 
-import { logoutUser, registerUser } from "../../../actions/authActions";
-import { getAllUsers, deleteUser, updateUser } from "../../../actions/dashboardActions";
-// import Deposits from './Deposits';
-// import Orders from './Orders';
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box p={3}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
+
+TabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.any.isRequired,
+  value: PropTypes.any.isRequired,
+};
+
+function a11yProps(index) {
+  return {
+    id: `simple-tab-${index}`,
+    'aria-controls': `simple-tabpanel-${index}`,
+  };
+}
 
 function Copyright() {
   return (
@@ -127,36 +161,27 @@ const useStyles = makeStyles((theme) => ({
     margin:'8px 0',
     backgroundColor: '#666bff'}
 }));
-function onLogoutClick(e) {
-  e.preventDefault();
-  this.props.logoutUser();
-}
-const getData = (prop) => {
-  return prop.getAllUsers({email:prop.auth.user.email, auth:prop.auth.isAuthenticated}, prop.history);
-}
 
 
+const SearchPage =  (props) => {
 
-const Dashboard =  (props) => {
+  const [value, setValue] = React.useState(0);
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
   var itemList = "";
-  if (props.auth.user.role === "staff-member") {
+  if (props.auth.user.role === "user") {
     itemList = secondaryListItems;
   }
   else {
     itemList = mainListItems;
   }
-
-  console.log(props);
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
   const handleDrawerOpen = () => {
     setOpen(true);
   };
-  const [data, setData] = React.useState(true);
-  React.useEffect(async () => {
-    const d = await getData(props);
-    setData(d.data);
-  },[]);
 
   function onLogoutClick(e) {
     e.preventDefault();
@@ -182,7 +207,7 @@ const Dashboard =  (props) => {
             <MenuIcon />
           </IconButton>
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-            Dashboard
+            Search
           </Typography>
           <Button color="inherit" className={classes.btnstyle} onClick={onLogoutClick}>
             Logout
@@ -207,25 +232,24 @@ const Dashboard =  (props) => {
       </Drawer>
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
+
         <Container maxWidth="lg" className={classes.container}>
-            {/* Recent Orders */}
-            <Grid item xs={12}>
-              <Paper className={classes.paper}>
+          <Grid item xs={12}>
+            <Paper className={classes.paper}>
+              <TenderTable {...props}/>
+            </Paper>
+          </Grid>
 
-              </Paper>
-            </Grid>
-
-          <Box pt={4}>
-            <Copyright />
-          </Box>
+        <Box pt={4}>
+          <Copyright />
+        </Box>
         </Container>
-
       </main>
     </div>
   );
 }
 
-Dashboard.propTypes = {
+SearchPage.propTypes = {
   logoutUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired
 };
@@ -234,5 +258,5 @@ const mapStateToProps = state => ({
 });
 export default connect(
   mapStateToProps,
-  { logoutUser, getAllUsers, deleteUser, updateUser, registerUser }
-)(withRouter(Dashboard));
+  { logoutUser,registerTender, getTenders, searchTenders }
+)(withRouter(SearchPage));

@@ -17,7 +17,7 @@ import UpdateEmail from "./dashboard/functions/update/UpdateEmail";
 import UpdateName from "./dashboard/functions/update/UpdateName";
 import UpdatePassword from "./dashboard/functions/update/UpdatePassword";
 // Check for token to keep user logged in
-import Dashboard from "./components/Sections/Dashboard/dashboard";
+import Search from "./components/Sections/Search/SearchPage";
 import Employees from "./components/Sections/Employees/Employees";
 import Profile from "./components/Sections/Profile/profile";
 import Settings from "./components/Sections/Settings/SettingsPage";
@@ -51,7 +51,7 @@ class App extends Component {
             <Route exact path="/login" component={Login} />
             <Switch>
               <PrivateRoute exact path="/register" component={Register} />
-              <PrivateRoute exact path="/dashboard" component={Dashboard} />
+              <PrivateRoute exact path="/search" component={Search} />
               <PrivateRoute exact path="/settings" component={Settings} />
               <PrivateRoute exact path="/employees" component={Employees} />
               <PrivateRoute exact path="/profile" component={Profile} />

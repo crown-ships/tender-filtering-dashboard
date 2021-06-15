@@ -4,6 +4,7 @@ const signupTemplateCopy = require('../models/signupmodels');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken')
 const userController = require('../server/controllers/userControllers');
+const tenderController = require('../server/controllers/tenderControllers');
 
 //userController.allowIfLoggedin, userController.grantAccess('create', 'profile'),
 router.post('/signup', userController.signup);
@@ -19,6 +20,10 @@ router.get('/user', userController.allowIfLoggedin, userController.grantAccess('
 //add controls here too, and check in tests
 router.get('/users', userController.allowIfLoggedin, userController.grantAccess('readAny', 'profile'),  userController.getUsers);
 
+router.post('/signupTender', tenderController.signup);
 
+router.get('/searchTenders',  userController.allowIfLoggedin, userController.grantAccess('readAny', 'tender'), tenderController.searchTenders);
+
+router.get('/getTenders',  userController.allowIfLoggedin, userController.grantAccess('readAny', 'tender'), tenderController.getTenders);
 
 module.exports = router;
