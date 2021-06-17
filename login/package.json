@@ -28,17 +28,22 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "node backend/server/server.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install npm && run build",
     "eject": "react-scripts eject"
   },
+  "engines": {
+        "node": "10.16.0"
+    },
   "eslintConfig": {
     "extends": [
       "react-app",
       "react-app/jest"
     ]
   },
+  
   "browserslist": {
     "production": [
       ">0.2%",
