@@ -12,6 +12,7 @@ import LayersIcon from '@material-ui/icons/Layers';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import SettingsIcon from '@material-ui/icons/Settings';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 
 export const mainListItems = (
   <div>
@@ -20,6 +21,12 @@ export const mainListItems = (
         <DashboardIcon />
       </ListItemIcon>
       <ListItemText primary="Search" />
+    </ListItem>
+    <ListItem button component={Link} to="/viewed">
+      <ListItemIcon>
+        <CheckCircleIcon />
+      </ListItemIcon>
+      <ListItemText primary="Viewed" />
     </ListItem>
     <ListItem button component={Link} to="/employees">
       <ListItemIcon>
@@ -50,6 +57,12 @@ export const secondaryListItems = (
       <DashboardIcon />
     </ListItemIcon>
     <ListItemText primary="Search" />
+  </ListItem>
+  <ListItem button component={Link} to="/viewed">
+    <ListItemIcon>
+      <CheckCircleIcon />
+    </ListItemIcon>
+    <ListItemText primary="Viewed" />
   </ListItem>
   <ListItem button component={Link} to="/profile">
     <ListItemIcon>

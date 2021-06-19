@@ -28,7 +28,9 @@ exports.signup = async (req, res, next) => {
    ePublishedDate: req.body.ePublishedDate,
    bidSubmissionDate: req.body.bidSubmissionDate,
    tenderApproxValue: req.body.tenderApproxValue,
-   tenderFilesLocation: req.body.tenderFilesLocation
+   tenderFilesLocation: req.body.tenderFilesLocation,
+   assignedID: req.body.assignedID,
+   assignedName: req.body.assignedName
   });
 
   await signedupTender.save()
@@ -49,7 +51,11 @@ exports.searchTenders = async (req, res, next) => {
     productCategory: req.query.productCategory,
     ePublishedDate: req.query.ePublishedDate,
     bidSubmissionDate: req.query.bidSubmissionDate,
-    tenderApproxValue: req.query.tenderApproxValue
+    tenderApproxValue: req.query.tenderApproxValue,
+    assignedID: req.query.assignedID,
+    assignedName: req.query.assignedName,
+    decision: req.query.decision,
+    viewed: req.query.viewed
   };
 
    var counter=0;
@@ -102,77 +108,24 @@ exports.getTenders = async (req, res, next) => {
 //   }
 // }
 //  //validate role
-// exports.updateTender = async (req, res, next) => {
-//  try {
-//    const email = req.query.email;
-//    const email_upd = req.query.emailupdate;
-//
-//    const tender_req = await Tender.find({email:email});
-//    const tender_upd = await Tender.find({email:email_upd});
-//
-//    const tenderRole = tender_req[0].role;
-//    const updateRole = tender_upd[0].role;
-//
-//    if (tenderRole == "admin") {
-//      if(updateRole == "super-admin" || updateRole == "admin") {
-//        res.status(401).json({
-//          error: "Action forbidden: Not allowed to change this tender."
-//        });
-//       }
-//     }
-//
-//    const tenderBody = req.body;
-//
-//    if (tenderBody.email)
-//    {
-//      const { errors, isValid } = validateEmail(tenderBody);
-//      // Check validation
-//      if (!isValid) {
-//        return res.status(400).json(errors);
-//      }
-//    }
-//
-//    if (tenderBody.role)
-//    {
-//      const { errors, isValid } = validateRole(tenderBody);
-//      // Check validation
-//      if (!isValid) {
-//        return res.status(400).json(errors);
-//      }
-//    }
-//
-//    if (tenderBody.name)
-//    {
-//      const { errors, isValid } = validateName(tenderBody);
-//      // Check validation
-//      if (!isValid) {
-//        return res.status(400).json(errors);
-//      }
-//    }
-//
-//    if (tenderBody.password)
-//    {
-//      const { errors, isValid } = validatePasswordInput(tenderBody);
-//      // Check validation
-//      if (!isValid) {
-//        return res.status(400).json(errors);
-//      }
-//      tenderBody.password = await hashPassword(tenderBody.password);
-//      tenderBody.password2 = tenderBody.password;
-//    }
-//
-//    await Tender.findByIdAndUpdate(tender_upd[0]._id, tenderBody);
-//    const tender = await Tender.findById(tender_upd[0]._id);
-//
-//    res.status(200).json({
-//     data: tender,
-//     message: 'Tender updated successfully.'
-//    });
-//   }
-//   catch (error) {
-//    next(error)
-//   }
-// }
+
+exports.updateTender = async (req, res, next) => {
+ try {
+   const id = req.query.tenderID;
+   const tenderBody = req.body;
+
+   await Tender.findByIdAndUpdate(id, tenderBody);
+   const tender = await Tender.findById(id);
+
+   res.status(200).json({
+    data: tender,
+    message: 'Tender updated successfully.'
+   });
+  }
+  catch (error) {
+   next(error)
+  }
+}
 //
 // exports.deleteTender = async (req, res, next) => {
 //  try {

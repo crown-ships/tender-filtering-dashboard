@@ -26,4 +26,5 @@ router.get('/searchTenders',  userController.allowIfLoggedin, userController.gra
 
 router.get('/getTenders',  userController.allowIfLoggedin, userController.grantAccess('readAny', 'tender'), tenderController.getTenders);
 
+router.post('/updateTender',  userController.allowIfLoggedin, userController.grantAccess('updateAny', 'tender'), tenderController.updateTender);
 module.exports = router;

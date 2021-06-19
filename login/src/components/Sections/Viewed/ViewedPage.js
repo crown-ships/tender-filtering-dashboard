@@ -29,7 +29,9 @@ import ExitToApp from '@material-ui/icons/ExitToApp';
 import { mainListItems, secondaryListItems } from '../listitem';
 import { logoutUser } from "../../../actions/authActions";
 import { registerTender, getTenders, searchTenders, updateTender} from "../../../actions/tenderActions";
-import TenderTablePicker from "./TenderTablePicker";
+import ViewedTablePicker from "./pickers/ViewedTablePicker";
+import AttendedTablePicker from "./pickers/AttendedTablePicker";
+import RejectedTablePicker from "./pickers/RejectedTablePicker";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -162,7 +164,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const SearchPage =  (props) => {
+const ViewedPage =  (props) => {
 
   const [value, setValue] = React.useState(0);
   const handleChange = (event, newValue) => {
@@ -233,11 +235,26 @@ const SearchPage =  (props) => {
         <div className={classes.appBarSpacer} />
 
         <Container maxWidth="lg" className={classes.container}>
-          <Grid item xs={12}>
-            <Paper className={classes.paper}>
-              <TenderTablePicker {...props}/>
-            </Paper>
-          </Grid>
+        <Grid item xs={12}>
+          <Paper className={classes.paper}>
+            <AppBar position="static">
+              <Tabs value={value} centered onChange={handleChange} aria-label="simple tabs example">
+                <Tab label="Viewed" {...a11yProps(0)} />
+                <Tab label="Attended" {...a11yProps(1)} />
+                <Tab label="Rejected" {...a11yProps(2)} />
+              </Tabs>
+            </AppBar>
+            <TabPanel value={value} index={0}>
+              <ViewedTablePicker {...props}/>
+            </TabPanel>
+            <TabPanel value={value} index={1}>
+              <AttendedTablePicker {...props}/>
+            </TabPanel>
+            <TabPanel value={value} index={2}>
+              <RejectedTablePicker {...props}/>
+            </TabPanel>
+          </Paper>
+        </Grid>
 
         <Box pt={4}>
           <Copyright />
@@ -248,7 +265,7 @@ const SearchPage =  (props) => {
   );
 }
 
-SearchPage.propTypes = {
+ViewedPage.propTypes = {
   logoutUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired
 };
@@ -258,4 +275,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   { logoutUser,registerTender, getTenders, searchTenders,updateTender }
-)(withRouter(SearchPage));
+)(withRouter(ViewedPage));

@@ -27,6 +27,19 @@ export const registerTender = (userData, history) => dispatch => {
     );
 };
 
+export const updateTender = (userData, history) => dispatch => {
+  axios
+    .post("http://localhost:4000/api/updateTender", userData.body, {params:userData.params})
+    .then(res => {
+      console.log("updated");
+    })
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
+};
 
 export const searchTenders = (userData, history) => {
   return function (dispatch) {

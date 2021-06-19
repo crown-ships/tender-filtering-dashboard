@@ -36,6 +36,31 @@ const tenderModel = new mongoose.Schema({
   },
   tenderFilesLocation: {
     type: String
+  },
+  assignedID: {
+    type: String
+  },
+  assignedName: {
+    type: String
+  },
+  decision: {
+    type: String,
+    default: "none",
+    enum: ["Attended", "Rejected", "none"]
+  },
+  rejectReason: {
+    type: String
+  },
+  viewed: {
+    type: String,
+    default: "no",
+    enum: ["yes", "no"]
+  },
+  viewedDate: {
+    type: Date
+  },
+  decisionDate: {
+    type: Date
   }
 });
 

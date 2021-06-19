@@ -18,6 +18,7 @@ import UpdateName from "./dashboard/functions/update/UpdateName";
 import UpdatePassword from "./dashboard/functions/update/UpdatePassword";
 // Check for token to keep user logged in
 import Search from "./components/Sections/Search/SearchPage";
+import Viewed from "./components/Sections/Viewed/ViewedPage";
 import Employees from "./components/Sections/Employees/Employees";
 import Profile from "./components/Sections/Profile/profile";
 import Settings from "./components/Sections/Settings/SettingsPage";
@@ -54,6 +55,7 @@ class App extends Component {
               <PrivateRoute exact path="/search" component={Search} />
               <PrivateRoute exact path="/settings" component={Settings} />
               <PrivateRoute exact path="/employees" component={Employees} />
+              <PrivateRoute exact path="/viewed" component={Viewed} />
               <PrivateRoute exact path="/profile" component={Profile} />
               <PrivateRoute exact path="/basic-dashboard" component={BasicDashboard} />
               <PrivateRoute exact path="/delete" component={Delete} />

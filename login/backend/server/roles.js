@@ -6,6 +6,7 @@ ac.grant("staff-member")
  .readOwn("profile")
  .updateOwn("profile")
  .readAny("tender")
+ .updateAny("tender")
  .create("tender")
 
 ac.grant("supervisor")
