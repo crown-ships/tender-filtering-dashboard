@@ -43,11 +43,10 @@ function createData() {
   return {
     tenderName:"",
     tenderType: "",
-    decisionDate: "",
     organisationName: "",
     tenderCategory:"",
     productCategory: "",
-    ePublishedDate:"",
+    viewedDate:"",
     bidSubmissionDate: "",
     tenderApproxValue: null
   }
@@ -74,10 +73,15 @@ const useStyles = makeStyles(theme => ({
 }))
 
 const headCells = [
+    { id: 'assignedName', label: 'assignedName'},
     { id: 'tenderName', label: 'Tender Name' },
+    { id: 'tenderType', label: 'Tender Type' },
     { id: 'viewed', label: 'Viewed'},
     { id: 'decision', label: 'Decision'},
-    { id: 'decisionDate', label: 'Decision Date' }
+    { id: 'viewedDate', label: 'viewedDate'},
+    { id: 'organisationName', label: 'Org. Name' },
+    { id: 'productCategory', label: 'Product Category'},
+    { id: 'download', label: 'Download', disableSorting: true}
 ];
 
 const rows = [
@@ -93,7 +97,7 @@ const getData = (prop) => {
     assignedID: "",
     assignedName: "",
     viewed: "yes",
-    decision: "Attended",
+    decision: "none",
     tenderName: "",
     tenderType: "",
     organisationName: "",
@@ -140,18 +144,6 @@ export default function A_TenderTable(props) {
           TblPagination,
           recordsAfterPagingAndSorting
       } = UseTable(records, headCells, filterFn);
-
-  const handleSearch = e => {
-    let target = e.target;
-    setFilterFn({
-        fn: items => {
-            if (target.value == "")
-                return items;
-            else
-                return items.filter(x => x.tenderName.toLowerCase().includes(target.value.toLowerCase()))
-        }
-    })
-  }
 
   const edit = (data, id) => {
 
@@ -236,20 +228,20 @@ export default function A_TenderTable(props) {
 
   const decisionIcon = (status) => {
 
-  if (status === "Attended") {
-    console.log(status);
-    console.log("yes");
-    return <CheckCircleIcon fontSize="small" style={{ color: "#00b386" }}/>
+    if (status === "Attended") {
+      console.log(status);
+      console.log("yes");
+      return <CheckCircleIcon fontSize="small" style={{ color: "#00b386" }}/>
+    }
+    else if (status === "none") {
+      console.log("what");
+      return <HelpIcon fontSize="small"  style={{ color: "#ffbf00" }}/>
+    }
+    else if (status === "Rejected") {
+      console.log("what");
+      return <CancelIcon fontSize="small"  style={{ color: "#DC143C" }}/>
+    }
   }
-  else if (status === "none") {
-    console.log("what");
-    return <HelpIcon fontSize="small"  style={{ color: "#ffbf00" }}/>
-  }
-  else if (status === "Rejected") {
-    console.log("what");
-    return <CancelIcon fontSize="small"  style={{ color: "#DC143C" }}/>
-  }
-}
 
   return (
     <React.Fragment>
@@ -259,10 +251,14 @@ export default function A_TenderTable(props) {
             {
               recordsAfterPagingAndSorting().map(row =>
               (<TableRow key={row._id} onClick={() => onDisplay(row)}>
-              <TableCell>{row.tenderName}</TableCell>
-              <TableCell>{viewedIcon(row.viewed)}</TableCell>
-              <TableCell>{decisionIcon(row.decision)}</TableCell>
-              <TableCell>{dateToString(row.decisionDate)}</TableCell>
+                <TableCell>{row.assignedName}</TableCell>
+                <TableCell>{row.tenderName}</TableCell>
+                <TableCell>{row.tenderType}</TableCell>
+                <TableCell>{viewedIcon(row.viewed)}</TableCell>
+                <TableCell>{decisionIcon(row.decision)}</TableCell>
+                <TableCell>{dateToString(row.viewedDate)}</TableCell>
+                <TableCell>{row.organisationName}</TableCell>
+                <TableCell>{row.productCategory}</TableCell>
                 <TableCell>
                   <ActionButton
                     onClick={onDownload}>

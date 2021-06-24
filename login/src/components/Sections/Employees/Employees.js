@@ -1,6 +1,6 @@
 import React  from 'react';
 import clsx from 'clsx';
-import { Ldink, withRouter } from "react-router-dom";
+import {  withRouter } from "react-router-dom";
 
 import { connect } from "react-redux";
 import { makeStyles } from '@material-ui/core/styles';
@@ -15,15 +15,12 @@ import PropTypes from "prop-types";
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
-import Badge from '@material-ui/core/Badge';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import NotificationsIcon from '@material-ui/icons/Notifications';
-import ExitToApp from '@material-ui/icons/ExitToApp';
 import { mainListItems, secondaryListItems } from '../listitem';
 import TablePicker from "./TablePicker"
 import { logoutUser, registerUser } from "../../../actions/authActions";
@@ -126,10 +123,7 @@ const useStyles = makeStyles((theme) => ({
     margin:'8px 0',
     backgroundColor: '#666bff'}
 }));
-function onLogoutClick(e) {
-  e.preventDefault();
-  this.props.logoutUser();
-}
+
 const getData = (prop) => {
   return prop.getAllUsers({email:prop.auth.user.email, auth:prop.auth.isAuthenticated}, prop.history);
 }
@@ -161,6 +155,7 @@ const Employees =  (props) => {
     e.preventDefault();
     props.logoutUser();
   }
+
   const handleDrawerClose = () => {
     setOpen(false);
   };

@@ -1,6 +1,4 @@
 import axios from "axios";
-import setAuthToken from "../utils/setAuthToken";
-
 
 import {
  GET_ERRORS
@@ -22,6 +20,21 @@ export const updateUser = (userData, history) => dispatch => {
         history.push("/basic-dashboard")
       else if (userData.role === "admin")
         history.push("/admin/employees")
+    })
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
+};
+
+export const updateOwn = (userData, history) => dispatch => {
+  axios
+    .post("http://localhost:4000/api/updOwn", userData.body, {params:userData.params})
+    .then(res => {
+      console.log("updated");
+
     })
     .catch(err =>
       dispatch({

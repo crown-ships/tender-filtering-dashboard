@@ -135,6 +135,7 @@ export default function A_TenderTable(props) {
           return items;//.filter(x =>  x.approved.includes("approved"))
         }
     })
+    setInput(null)
   },[notify, list, input]);
 
 
@@ -155,7 +156,7 @@ export default function A_TenderTable(props) {
       },
       body: data
     };
-        console.log(input);
+    setInput(input)
     props.updateTender(input, props.history);
     setNotify({
       isOpen: true,
@@ -192,6 +193,7 @@ export default function A_TenderTable(props) {
         props.updateTender(inp, props.history);
       }
     }
+    setInput(item)
     setRecordDisplay(item);
     setOpenDetailsPopup(true);
   }

@@ -38,11 +38,11 @@ import HelpIcon from '@material-ui/icons/Help';
 import Container from '@material-ui/core/Container';
 import TenderDetails from '../../popups/TenderDetails';
 
-// Generate Order Data
 function createData() {
   return {
     tenderName:"",
     tenderType: "",
+    decisionDate: "",
     organisationName: "",
     tenderCategory:"",
     productCategory: "",
@@ -51,7 +51,6 @@ function createData() {
     tenderApproxValue: null
   }
 }
-
 const useStyles = makeStyles(theme => ({
     pageContent: {
         margin: theme.spacing(5),
@@ -74,18 +73,10 @@ const useStyles = makeStyles(theme => ({
 
 const headCells = [
     { id: 'tenderName', label: 'Tender Name' },
-    { id: 'tenderType', label: 'Tender Type' },
     { id: 'viewed', label: 'Viewed'},
     { id: 'decision', label: 'Decision'},
-    { id: 'organisationName', label: 'Org. Name' },
-    { id: 'tenderCategory', label: 'Tender Category'},
-    { id: 'productCategory', label: 'Product Category'},
-    { id: 'ePublishedDate', label: 'e-Published Date'},
-    { id: 'bidSubmissionDate', label: 'Bid Submssion Date'},
-    { id: 'tenderApproxValue', label: 'Approx Value'},
-    { id: 'download', label: 'Download', disableSorting: true}
+    { id: 'decisionDate', label: 'Decision Date' }
 ];
-
 const rows = [
   createData()
 ];
@@ -265,22 +256,10 @@ export default function A_TenderTable(props) {
             {
               recordsAfterPagingAndSorting().map(row =>
               (<TableRow key={row._id} onClick={() => onDisplay(row)}>
-                <TableCell>{row.tenderName}</TableCell>
-                <TableCell>{row.tenderType}</TableCell>
-                <TableCell>{viewedIcon(row.viewed)}</TableCell>
-                <TableCell>{decisionIcon(row.decision)}</TableCell>
-                <TableCell>{row.organisationName}</TableCell>
-                <TableCell>{row.tenderCategory}</TableCell>
-                <TableCell>{row.productCategory}</TableCell>
-                <TableCell>{dateToString(row.ePublishedDate)}</TableCell>
-                <TableCell>{dateToString(row.bidSubmissionDate)}</TableCell>
-                <TableCell>{row.tenderApproxValue}</TableCell>
-                <TableCell>
-                  <ActionButton
-                    onClick={onDownload}>
-                    <GetAppIcon fontSize="medium" />
-                  </ActionButton>
-                </TableCell>
+              <TableCell>{row.tenderName}</TableCell>
+              <TableCell>{viewedIcon(row.viewed)}</TableCell>
+              <TableCell>{decisionIcon(row.decision)}</TableCell>
+              <TableCell>{dateToString(row.decisionDate)}</TableCell>
               </TableRow>
           ))}
         </TableBody>

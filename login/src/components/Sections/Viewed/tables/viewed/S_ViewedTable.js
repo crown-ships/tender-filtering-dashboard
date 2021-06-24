@@ -81,7 +81,7 @@ const headCells = [
     { id: 'viewedDate', label: 'viewedDate'},
     { id: 'organisationName', label: 'Org. Name' },
     { id: 'productCategory', label: 'Product Category'},
-    { id: 'download', label: 'Download', disableSorting: true}
+    { id: 'decision', label: 'Decision', disableSorting: true}
 ];
 
 const rows = [
@@ -270,12 +270,6 @@ export default function A_TenderTable(props) {
                        onDecision(row);
                       }}>
                     <EditOutlinedIcon fontSize="small" />
-                  </ActionButton>
-                </TableCell>
-                <TableCell>
-                  <ActionButton
-                    onClick={onDownload}>
-                    <GetAppIcon fontSize="medium" />
                   </ActionButton>
                 </TableCell>
               </TableRow>

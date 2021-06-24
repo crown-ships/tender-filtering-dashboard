@@ -176,6 +176,63 @@ exports.getUser = async (req, res, next) => {
     next(error)
   }
 }
+
+exports.updateOwn = async (req, res, next) => {
+  try {
+    const id = req.query.id;
+    const userBody = req.body;
+
+    if (userBody.email)
+    {
+      const { errors, isValid } = validateEmail(userBody);
+      // Check validation
+      if (!isValid) {
+        return res.status(400).json(errors);
+      }
+    }
+
+    if (userBody.role)
+    {
+      const { errors, isValid } = validateRole(userBody);
+      // Check validation
+      if (!isValid) {
+        return res.status(400).json(errors);
+      }
+    }
+
+    if (userBody.name)
+    {
+      const { errors, isValid } = validateName(userBody);
+      // Check validation
+      if (!isValid) {
+        return res.status(400).json(errors);
+      }
+    }
+
+    if (userBody.password)
+    {
+      const { errors, isValid } = validatePasswordInput(userBody);
+      // Check validation
+      if (!isValid) {
+        return res.status(400).json(errors);
+      }
+      userBody.password = await hashPassword(userBody.password);
+      userBody.password2 = userBody.password;
+    }
+
+    await User.findByIdAndUpdate(id, userBody);
+    const updated = await User.findById(id);
+
+    res.status(200).json({
+     data: updated,
+     message: 'User updated successfully.'
+    });
+  }
+  catch (error) {
+    next(error)
+  }
+}
+
  //validate role
 exports.updateUser = async (req, res, next) => {
  try {

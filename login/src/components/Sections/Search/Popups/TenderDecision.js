@@ -77,7 +77,8 @@ export default function TenderDetails(props) {
 
             const input = {
               decision: values.decision,
-              decisionDate:  Date()
+              decisionDate:  Date(),
+              rejectReason: values.rejectReason
           };
           props.edit(input, props.recordForEdit._id);
         }

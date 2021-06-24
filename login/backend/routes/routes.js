@@ -9,6 +9,8 @@ const tenderController = require('../server/controllers/tenderControllers');
 //userController.allowIfLoggedin, userController.grantAccess('create', 'profile'),
 router.post('/signup', userController.signup);
 
+router.post('/updOwn',  userController.allowIfLoggedin, userController.grantAccess('updateOwn', 'profile'), userController.updateOwn);
+
 router.post('/user',  userController.allowIfLoggedin, userController.grantAccess('updateAny', 'profile'), userController.updateUser);
 
 router.delete('/users', userController.allowIfLoggedin, userController.grantAccess('deleteAny', 'profile'),  userController.deleteUser);

@@ -10,7 +10,6 @@ import store from "./store";
 import Register from "./auth/Register";
 import Login from "./auth/Login";
 import PrivateRoute from "./privateRoute/PrivateRoute";
-import AdminDashboard from "./dashboard/AdminDashboard";
 import BasicDashboard from "./dashboard/BasicDashboard";
 import Delete from "./dashboard/functions/Delete";
 import UpdateEmail from "./dashboard/functions/update/UpdateEmail";

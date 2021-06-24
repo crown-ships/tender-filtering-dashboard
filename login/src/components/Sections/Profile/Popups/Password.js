@@ -57,6 +57,7 @@ export default function UpdateEmail(props) {
                     <Input
                         name="password"
                         label="Password"
+                        type="password"
                         margin="normal"
                         fullwidth=""
                         value={values.password}
@@ -66,6 +67,7 @@ export default function UpdateEmail(props) {
                     <Input
                         name="password2"
                         label="Confirm Password"
+                        type="password"
                         margin="normal"
                         fullwidth=""
                         value={values.password2}

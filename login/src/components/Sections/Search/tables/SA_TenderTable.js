@@ -36,7 +36,8 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import HelpIcon from '@material-ui/icons/Help';
 import Container from '@material-ui/core/Container';
-
+import TenderDetails from '../Popups/TenderDetails';
+import TenderDecision from '../Popups/TenderDecision';
 
 const initialFValues = {
   tenderName:'',
@@ -446,6 +447,7 @@ const useStyles = makeStyles(theme => ({
 const headCells = [
     { id: 'tenderName', label: 'Tender Name' },
     { id: 'tenderType', label: 'Tender Type' },
+    { id: 'viewed', label: 'Viewed'},
     { id: 'organisationName', label: 'Org. Name' },
     { id: 'tenderCategory', label: 'Tender Category'},
     { id: 'productCategory', label: 'Product Category'},
@@ -467,11 +469,13 @@ const getData = (prop) => {
   return prop.getTenders({email:prop.auth.user.email, auth:prop.auth.isAuthenticated}, prop.history);
 }
 
-export default function Tender_Table(props) {
+export default function A_TenderTable(props) {
 
   const [confirmDialog, setConfirmDialog] = React.useState({ isOpen: false, title: '', subTitle: '' });
   const [notify, setNotify] = React.useState({ isOpen: false, message: '', type: '' });
-  const [filterFn, setFilterFn] = React.useState({ fn: items => { return items; } })
+  const [filterFn, setFilterFn] = React.useState({ fn: items => { return items; } });
+  const [openDetailsPopup, setOpenDetailsPopup] = React.useState(false);
+  const [recordDisplay, setRecordDisplay] = React.useState(null);
   const [data, setData] = React.useState(rows);
   const [list, setList] = React.useState([]);
   const [records, setRecords] = React.useState(data);
@@ -509,6 +513,26 @@ export default function Tender_Table(props) {
     })
   }
 
+  const onDisplay = item => {
+
+    if (item.viewed === "no") {
+      if (props.auth.user.id === item.assignedID) {
+        var input = {
+          params: {
+            email: props.auth.user.email,
+            auth: props.auth.isAuthenticated,
+            tenderID: item._id
+          },
+          body: {
+            viewed: "yes"
+          }
+        }
+        props.updateTender(input, props.history);
+      }
+    }
+    setRecordDisplay(item);
+    setOpenDetailsPopup(true);
+  }
   const validate = (fieldValues = values) => {
       let temp = { ...errors }
       setErrors({
@@ -555,13 +579,6 @@ export default function Tender_Table(props) {
     e.preventDefault();
     props.logoutUser();
 }
-  function monthDiff(d1, d2) {
-      var months;
-      months = (d2.getFullYear() - d1.getFullYear()) * 12;
-      months -= d1.getMonth();
-      months += d2.getMonth();
-      return months <= 0 ? 0 : months;
-  }
 
   const dateToString = (date) => {
     var d = date.toString();
@@ -576,6 +593,15 @@ export default function Tender_Table(props) {
     link.href ="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf";
     link.click();
   };
+
+  const viewedIcon = (status) => {
+    if (status === "yes") {
+      return <CheckCircleIcon fontSize="small" style={{ color: "#0000D1" }}/>
+    }
+    else if (status === "no") {
+      return <CheckCircleIcon fontSize="small"  style={{ color: "#A7AAB4" }}/>
+    }
+  }
 
   return (
     <React.Fragment>
@@ -709,9 +735,10 @@ export default function Tender_Table(props) {
           <TableBody>
             {
               recordsAfterPagingAndSorting().map(row =>
-              (<TableRow key={row._id}>
+              (<TableRow key={row._id} onClick={() => onDisplay(row)}>
                 <TableCell>{row.tenderName}</TableCell>
                 <TableCell>{row.tenderType}</TableCell>
+                <TableCell>{viewedIcon(row.viewed)}</TableCell>
                 <TableCell>{row.organisationName}</TableCell>
                 <TableCell>{row.tenderCategory}</TableCell>
                 <TableCell>{row.productCategory}</TableCell>
@@ -729,6 +756,13 @@ export default function Tender_Table(props) {
         </TableBody>
       </TblContainer>
       <TblPagination />
+      <Popup
+        title="Tender Details"
+        openPopup={openDetailsPopup}
+        setOpenPopup={setOpenDetailsPopup}
+      >
+      <TenderDetails {...props} recordDisplay = {recordDisplay} />
+      </Popup>
     </React.Fragment>
   );
 }

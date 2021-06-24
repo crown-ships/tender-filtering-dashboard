@@ -10,7 +10,8 @@ import InputLabel from '@material-ui/core/InputLabel';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 
 const initialFValues = {
-  decision: ''
+  decision: '',
+  rejectReason: ''
 }
 
 const decisions = [
@@ -76,7 +77,8 @@ export default function TenderDetails(props) {
 
             const input = {
               decision: values.decision,
-              decisionDate:  Date()
+              decisionDate:  Date(),
+              rejectReason: values.rejectReason
           };
           props.edit(input, props.recordForEdit._id);
         }
@@ -107,6 +109,19 @@ export default function TenderDetails(props) {
                     >{decisions.map(item =><option key={item.key} value={item.item}>{item.item}</option>)}
                     </Select>
                   </FormControl>
+                  {(values.decision === "Rejected")? <Input
+                        name="rejectReason"
+                        label="Reason for Rejection"
+                        value={values.rejectReason}
+                        onChange={handleInputChange}
+                        multiline  = {true}
+                        rows = {5}
+                        InputProps={{
+                          readOnly: (values.decision !== "Rejected"),
+                        }}
+                        error={errors.rejectReason}
+                    />: null}
+
                 </Grid>
                   <div>
                       <Button

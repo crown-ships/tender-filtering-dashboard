@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from "react-router-dom";
-import axios from 'axios';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { registerUser } from "../actions/authActions";
-import classnames from "classnames";
 const Validator = require("validator");
 const isEmpty = require("is-empty");
 
@@ -100,10 +98,10 @@ class Register extends Component {
 
   UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.auth.isAuthenticated) {
-      if (this.auth.user.role == "admin"){
+      if (this.auth.user.role === "admin"){
         this.props.history.push("/admin-dashboard"); // push user to dashboard when they login
       }
-      else if (nextProps.auth.user.role == "basic") {
+      else if (nextProps.auth.user.role === "basic") {
         this.props.history.push("/basic-dashboard");
       }
       else{

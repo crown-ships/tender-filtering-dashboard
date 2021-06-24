@@ -1,5 +1,5 @@
 import A_RejectedTable from "../tables/rejected/A_RejectedTable"
-// import SA_RejectedTable from "../tables/rejected/SA_RejectedTable"
+import SA_RejectedTable from "../tables/rejected/SA_RejectedTable"
 import S_RejectedTable from "../tables/rejected/S_RejectedTable"
 
   const RejectedTablePicker = (props) => {
@@ -11,12 +11,12 @@ import S_RejectedTable from "../tables/rejected/S_RejectedTable"
       <A_RejectedTable {...props}/>
     );
   }
-  // if (user.role === "super-admin"){
-  //   console.log("sa");
-  //   return(
-  //     <SA_RejectedTable {...props}/>
-  //   );
-  // }
+  if (user.role === "super-admin"){
+    console.log("sa");
+    return(
+      <SA_RejectedTable {...props}/>
+    );
+  }
   if (user.role === "supervisor"){
     console.log("s");
     return(

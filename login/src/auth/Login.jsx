@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
-import { Link } from "react-router-dom";
-//import "bootstrap/dist/css/bootstrap.min.css";
-import axios from 'axios';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { loginUser } from "../actions/authActions";
-import classnames from "classnames";
 
 
 import { Grid,Paper, Avatar, TextField, Button, Typography } from '@material-ui/core'

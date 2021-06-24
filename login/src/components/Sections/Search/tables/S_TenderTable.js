@@ -47,7 +47,7 @@ const initialFValues = {
   productCategory:'',
   ePublishedDate:'',
   bidSubmissionDate:'',
-  tenderApproxValue: null
+  tenderApproxValue: ''
 }
 
 const tenderTypeList = [
@@ -486,7 +486,7 @@ const getData = (prop) => {
   return prop.searchTenders(input, prop.history);
 }
 
-export default function A_TenderTable(props) {
+export default function S_TenderTable(props) {
 
   const [confirmDialog, setConfirmDialog] = React.useState({ isOpen: false, title: '', subTitle: '' });
   const [notify, setNotify] = React.useState({ isOpen: false, message: '', type: '' });
@@ -511,6 +511,7 @@ export default function A_TenderTable(props) {
           return items;//.filter(x =>  x.approved.includes("approved"))
         }
     })
+    setInput(null)
   },[notify, list, input]);
 
 
@@ -538,6 +539,7 @@ export default function A_TenderTable(props) {
       message: id,
       type: 'success'
     });
+    setNotify(null);
 
     setOpenDecisionPopup(false);
     setRecordForEdit(null);
@@ -627,10 +629,10 @@ export default function A_TenderTable(props) {
     return d;
   }
 
-  const onDownload = () => {
+  const onDownload = (row) => {
     const link = document.createElement("a");
-    link.download = `dummy.pdf`;
-    link.href ="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf";
+    link.download = row.tenderName + `.pdf`;
+    link.href = row.tenderFilesLocation;
     link.click();
   };
 
@@ -672,7 +674,6 @@ export default function A_TenderTable(props) {
                     <Input
                       id="ePublishedDate"
                       type="date"
-                      defaultValue="2017-05-24"
                       InputLabelProps={{
                         shrink: true,
                       }}
@@ -686,7 +687,6 @@ export default function A_TenderTable(props) {
                     <Input
                       id="bidSubmissionDate"
                       type="date"
-                      defaultValue="2017-05-24"
                       InputLabelProps={{
                         shrink: true,
                       }}
@@ -786,6 +786,7 @@ export default function A_TenderTable(props) {
                 <TableCell>{dateToString(row.bidSubmissionDate)}</TableCell>
                 <TableCell>{row.tenderApproxValue}</TableCell>
                 <TableCell>
+                {(row.viewed === "no")?null:
                   <ActionButton
                     disabled = {(row.viewed === "no")}
                     color="light"
@@ -795,11 +796,15 @@ export default function A_TenderTable(props) {
                       }}>
                     <EditOutlinedIcon fontSize="small" />
                   </ActionButton>
+                }
                 </TableCell>
                 <TableCell>
                   <ActionButton
-                    onClick={onDownload}>
-                    <GetAppIcon fontSize="medium" />
+                  onClick={(e) => {
+                     e.stopPropagation();
+                     onDownload(row);
+                    }}>
+                    <GetAppIcon fontSize="small" />
                   </ActionButton>
                 </TableCell>
               </TableRow>

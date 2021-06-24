@@ -110,44 +110,27 @@ export default function UserProfile(props) {
     setOpenPasswordPopup(true);
   }
   const edit = (data, resetForm, og_role) => {
-
     const input = {
       params: {
         email: props.auth.user.email,
-        emailupdate: data.email,
-        auth: props.auth.isAuthenticated
+        auth: props.auth.isAuthenticated,
+        id: props.auth.user.id
       },
       body: data
     };
 
-    if(props.auth.user.role === "admin"){
-      console.log(props);
-      if(og_role === "super-admin"){
-        resetForm();
-        setRecordForEdit(null);
-        setOpenEmailPopup(false);
-        setOpenPasswordPopup(false);
-        setOpenNamePopup(false);
-        setNotify({
-          isOpen: true,
-          message: "Not allowed to update this user",
-          type: 'error'
-        });
-      }
-    }
-    else{
-      props.updateUser(input, props.history);
-      resetForm();
-      setRecordForEdit(null);
-      setOpenEmailPopup(false);
-      setOpenPasswordPopup(false);
-      setOpenNamePopup(false);
-      setNotify({
-        isOpen: true,
-        message: "Update Successfully",
-        type: 'success'
-      });
-    }
+    props.updateOwn(input, props.history);
+    resetForm();
+    setRecordForEdit(null);
+    setOpenEmailPopup(false);
+    setOpenPasswordPopup(false);
+    setOpenNamePopup(false);
+    setNotify({
+      isOpen: true,
+      message: "Update Successfully",
+      type: 'success'
+    });
+
   }
     console.log(props)
     const user = props.auth.user;
@@ -171,7 +154,7 @@ export default function UserProfile(props) {
               id="outlined-read-only-input"
               name = "Name"
               margin="dense"
-              defaultValue={user.name}
+              value={data.name}
               opacity="0.4"
               InputProps={{
                 readOnly: true,
@@ -203,7 +186,7 @@ export default function UserProfile(props) {
               id="outlined-read-only-input"
               name = "Email"
               margin="dense"
-              defaultValue={user.email}
+              value={data.email}
               InputProps={{
                 readOnly: true,
               }}
@@ -234,7 +217,7 @@ export default function UserProfile(props) {
               name = "Password"
               type="password"
               margin="dense"
-              defaultValue={user.email}
+              value={data.name}
               InputProps={{
                 readOnly: true,
               }}
